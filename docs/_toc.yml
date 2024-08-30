@@ -1,0 +1,7 @@
+format: jb-book
+root: intro
+chapters:
+- file: parallel_programming
+- file: cpp_standard_parallelism
+- file: mpi_with_mpl
+

@@ -1,0 +1,16 @@
+title: Parallel Programming with C++ Standard Parallelism and the Message Passing Library
+author: SMU O'Donnell Data Science and Research Computing Institute
+logo: logo.webp
+
+execute:
+  execute_notebooks: force
+
+repository:
+  url: https://github.com/SouthernMethodistUniversity/parallel_cpp
+  path_to_book: docs
+  branch: main
+
+html:
+  use_issues_button: true
+  use_repository_button: true
+
