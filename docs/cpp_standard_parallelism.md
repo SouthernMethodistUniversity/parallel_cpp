@@ -12,7 +12,7 @@ ensures that code can run across different environments with minimal changes,
 which is a stark contrast to the more platform-dependent approaches of using
 `pthreads` or OpenMP.
 
-**Benefits of C++ Standard Parallelism:**
+## Benefits of C++ Standard Parallelism
 
 1. **Portability and Consistency:** C++ standard parallelism is designed to
 work across different compilers and operating systems, which ensures
@@ -68,7 +68,9 @@ easy-to-use alternative to traditional parallel programming models like
 integrates naturally with C++ applications, providing a solid foundation for
 both performance and code maintainability.
 
-## Hello, World!
+## Examples
+
+### Hello, World!
 
 Certainly! To write a "Hello, World!" program in C++ that utilizes C++ standard
 parallelism, we can use the features provided by the C++17 standard library.
@@ -82,7 +84,7 @@ print "Hello, World!" multiple times in parallel:
 :language: cpp
 ```
 
-### Explanation:
+#### Explanation:
 
 1. **Include Headers**: - `<iostream>`: For input-output operations. -
 `<vector>`: To use the `std::vector` container. - `<execution>`: To access
@@ -99,15 +101,17 @@ These denote the range of elements in the vector to be processed. - `[](int&) {
 ... }`: A lambda function that will be executed for each element in the vector.
 It simply prints "Hello, World!" to the console.
 
-### Note: - The use of `std::execution::par` ensures that the printing of
+Note:
+- The use of `std::execution::par` ensures that the printing of
 "Hello, World!" is attempted in parallel. However, the actual parallelism might
 vary depending on the implementation and the system's ability to handle
-parallel tasks. - In a real-world scenario, especially with I/O operations like
+parallel tasks.
+- In a real-world scenario, especially with I/O operations like
 printing to the console, actual speedup may not be achieved due to I/O being a
 common bottleneck. The primary purpose here is to demonstrate the syntax and
 concept.
 
-### Compilation:
+#### Compilation:
 
 To compile this program, you need to use a C++ compiler that supports C++17.
 For example, using `g++`, you can compile the code with:
@@ -123,7 +127,7 @@ Then run the program:
 This program should print "Hello, World!" ten times, potentially in parallel
 depending on the system's threading and execution capabilities.
 
-## Hello, World! with Thread Index
+### Hello, World! with Thread Index
 
 To modify the program to print the thread index alongside "Hello, World!", we
 need a way to identify the thread. In a standard parallel execution context
@@ -139,7 +143,7 @@ thread index:
 :language: cpp
 ```
 
-### Explanation:
+#### Explanation:
 
 1. **Thread Index Management**: - `std::atomic<int> thread_counter{0};`: An
 atomic counter is used to assign a unique index to each thread. - `thread_local
@@ -157,7 +161,7 @@ time.
 executed in parallel using `std::execution::par`. - Each thread gets its own
 index via the `thread_index` variable and prints a message to the console.
 
-### Compilation and Execution:
+#### Compilation and Execution:
 
 Compile the program using a C++17-compatible compiler, like `g++`, and then run
 it:
@@ -184,20 +188,18 @@ the use of multiple threads in parallel. The actual number of lines and the
 indices may vary based on the system and the runtime environment's handling of
 parallel execution.
 
-## Parallel Matrix-Matrix Multiplication
+### Parallel Matrix-Matrix Multiplication
 
 To perform matrix-matrix multiplication using C++ standard parallelism, we can
 utilize features from the C++17 standard, such as `std::for_each` with a
 parallel execution policy from the `<execution>` header. Below is a C++ program
 that demonstrates matrix-matrix multiplication using standard parallelism.
 
-### C++ Program for Matrix-Matrix Multiplication Using Parallelism
-
 ```{literalinclude} ../src/matrix_multiplication_parallel.cpp
 :language: cpp
 ```
 
-### Explanation:
+#### Explanation:
 
 1. **Matrix Representation**: - The matrices are represented using the `Matrix`
 type, which is a `std::vector` of `std::vector<int>`. This structure represents
@@ -222,7 +224,7 @@ matrix to the console.
 initialized. Matrix multiplication is performed using the `multiplyMatrices`
 function, and the result is printed.
 
-### Compilation and Execution
+#### Compilation and Execution
 
 To compile and run the program, you need a C++17-compatible compiler like
 `g++`. Use the following commands:
@@ -232,7 +234,7 @@ g++ -std=c++17 -o matrix_multiplication_parallel matrix_multiplication_parallel.
 ./matrix_multiplication_parallel
 ```
 
-### Expected Output
+#### Expected Output
 
 The output of the program will look like this:
 
@@ -251,7 +253,7 @@ Result Matrix C (A x B):
 6 6 6 
 ```
 
-### Notes:
+#### Notes:
 
 - The program performs matrix multiplication in parallel using the execution
 policy `std::execution::par`. This parallelization can improve performance on
