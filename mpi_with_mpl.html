@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The Message Passing Library (MPL) &#8212; Parallel Programming with C++ Standard Parallelism and the Message Passing Library</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'mpi_with_mpl';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="C++ Standard Parallelism" href="cpp_standard_parallelism.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.webp" class="logo__image only-light" alt="Parallel Programming with C++ Standard Parallelism and the Message Passing Library - Home"/>
+    <script>document.write(`<img src="_static/logo.webp" class="logo__image only-dark" alt="Parallel Programming with C++ Standard Parallelism and the Message Passing Library - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="parallel_programming.html">Parallel Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_standard_parallelism.html">C++ Standard Parallelism</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Message Passing Library (MPL)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SouthernMethodistUniversity/parallel_cpp" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SouthernMethodistUniversity/parallel_cpp/issues/new?title=Issue%20on%20page%20%2Fmpi_with_mpl.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/mpi_with_mpl.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Message Passing Library (MPL)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-safety-and-modern-c-features-one-of-the-primary-benefits-of">1. <strong>Type Safety and Modern C++ Features:</strong> One of the primary benefits of</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-abstraction-and-usability-mpl-provides-a-higher-level">2. <strong>Improved Abstraction and Usability:</strong> MPL provides a higher-level</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-productivity-and-reduced-development-time-by-simplifying">3. <strong>Enhanced Productivity and Reduced Development Time:</strong> By simplifying</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability-and-performance-optimization-mpl-is-optimized-to-work">4. <strong>Scalability and Performance Optimization:</strong> MPL is optimized to work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portability-and-compatibility-mpl-is-designed-to-be-fully">5. <strong>Portability and Compatibility:</strong> MPL is designed to be fully</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites-1-mpi-library-you-need-an-mpi-implementation-such-as">Prerequisites 1. <strong>MPI Library</strong>: You need an MPI implementation such as</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-code-hello-world-using-mpl-with-mpi">Sample Code: Hello World using MPL with MPI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation-1-including-mpl-include-mpl-mpl-hpp-includes-the">Explanation: 1. <strong>Including MPL</strong>: <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;mpl/mpl.hpp&gt;</span></code> includes the</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-ensure-that-the-mpl-headers-are-correctly-included-in-your-project">Notes: - Ensure that the MPL headers are correctly included in your project</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-matrix-multiplication">Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication-overview">Parallel Matrix-Matrix Multiplication Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-implement-the-program">Steps to Implement the Program:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication">C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parts-of-the-code">Key Parts of the Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Compilation and Execution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-message-passing-library-mpl">
+<h1>The Message Passing Library (MPL)<a class="headerlink" href="#the-message-passing-library-mpl" title="Permalink to this heading">#</a></h1>
+<p>Using the C++ MPL (Message Passing Library) in conjunction with MPI (Message
+Passing Interface) provides several significant benefits for developers working
+on parallel computing and distributed systems. Here are a few key advantages:</p>
+<section id="type-safety-and-modern-c-features-one-of-the-primary-benefits-of">
+<h2>1. <strong>Type Safety and Modern C++ Features:</strong> One of the primary benefits of<a class="headerlink" href="#type-safety-and-modern-c-features-one-of-the-primary-benefits-of" title="Permalink to this heading">#</a></h2>
+<p>using MPL with MPI is the enhanced type safety it offers. MPL is designed with
+modern C++ standards in mind, utilizing features such as templates, type
+inference, and smart pointers. This helps ensure that message-passing
+operations are type-safe, reducing the likelihood of runtime errors due to type
+mismatches. The ability to leverage modern C++ features such as lambdas, auto
+keyword, and constexpr also allows developers to write more concise and
+maintainable code, making use of idiomatic C++ patterns that are both robust
+and easier to understand.</p>
+</section>
+<section id="improved-abstraction-and-usability-mpl-provides-a-higher-level">
+<h2>2. <strong>Improved Abstraction and Usability:</strong> MPL provides a higher-level<a class="headerlink" href="#improved-abstraction-and-usability-mpl-provides-a-higher-level" title="Permalink to this heading">#</a></h2>
+<p>abstraction over the traditional MPI C/C++ bindings. By encapsulating common
+MPI operations into C++ classes and functions, MPL simplifies the syntax and
+reduces boilerplate code, leading to clearer and more readable codebases.
+Developers can focus more on the problem they are solving rather than the
+intricacies of MPI. This abstraction layer not only makes it easier to perform
+common tasks like point-to-point communication, broadcasting, and collective
+operations but also allows for the integration of complex C++ data types
+seamlessly.</p>
+</section>
+<section id="enhanced-productivity-and-reduced-development-time-by-simplifying">
+<h2>3. <strong>Enhanced Productivity and Reduced Development Time:</strong> By simplifying<a class="headerlink" href="#enhanced-productivity-and-reduced-development-time-by-simplifying" title="Permalink to this heading">#</a></h2>
+<p>MPI’s verbose and often error-prone API, MPL significantly reduces the learning
+curve for new developers and speeds up the development process for seasoned
+programmers. MPL’s design encourages best practices by providing a more
+intuitive API, which reduces the likelihood of common MPI-related bugs (such as
+incorrect buffer sizes, improper type handling, and synchronization issues).
+The result is a shorter development cycle, quicker debugging, and faster
+time-to-market for scientific and engineering applications that rely on
+parallel computing.</p>
+</section>
+<section id="scalability-and-performance-optimization-mpl-is-optimized-to-work">
+<h2>4. <strong>Scalability and Performance Optimization:</strong> MPL is optimized to work<a class="headerlink" href="#scalability-and-performance-optimization-mpl-is-optimized-to-work" title="Permalink to this heading">#</a></h2>
+<p>efficiently with MPI’s underlying communication mechanisms. It takes advantage
+of MPI’s high-performance, low-latency communication capabilities while
+providing additional optimizations that are facilitated by modern C++
+compilers. This means that applications developed using MPL can scale
+efficiently across large numbers of processors, making it suitable for
+high-performance computing (HPC) environments. Additionally, MPL’s API is
+designed to minimize the overhead introduced by its abstractions, ensuring that
+applications can achieve near-native MPI performance.</p>
+</section>
+<section id="portability-and-compatibility-mpl-is-designed-to-be-fully">
+<h2>5. <strong>Portability and Compatibility:</strong> MPL is designed to be fully<a class="headerlink" href="#portability-and-compatibility-mpl-is-designed-to-be-fully" title="Permalink to this heading">#</a></h2>
+<p>compatible with the MPI standard, ensuring that existing MPI-based applications
+can be easily ported to use MPL without significant changes to the underlying
+code. This backward compatibility makes MPL an attractive option for developers
+looking to modernize their codebases while maintaining the ability to run on
+various platforms that support MPI. Moreover, MPL’s abstraction layer can help
+mitigate platform-specific quirks and differences in MPI implementations,
+further enhancing portability.</p>
+<p>In summary, using the C++ MPL library with MPI provides a combination of modern
+C++ features, improved type safety, usability, enhanced productivity, and
+performance optimization. These benefits make it a powerful tool for developers
+working on parallel computing applications, helping to write more efficient,
+maintainable, and scalable code.</p>
+</section>
+<section id="hello-world">
+<h2>Hello, World!<a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h2>
+<p>To create a “Hello, World” style program in C++ that utilizes the Message
+Passing Interface (MPI) for parallelism with the Message Passing Library (MPL),
+you’ll first need to ensure that you have MPL set up in your environment. MPL
+is a modern C++ wrapper for MPI, which simplifies the process of using MPI by
+providing a more C++-like interface.</p>
+<p>Here’s a simple example of a “Hello, World” program using MPL and MPI:</p>
+<section id="prerequisites-1-mpi-library-you-need-an-mpi-implementation-such-as">
+<h3>Prerequisites 1. <strong>MPI Library</strong>: You need an MPI implementation such as<a class="headerlink" href="#prerequisites-1-mpi-library-you-need-an-mpi-implementation-such-as" title="Permalink to this heading">#</a></h3>
+<p>OpenMPI or MPICH installed on your system. 2. <strong>MPL</strong>: You need to have MPL
+installed. MPL is header-only, so you can include it in your project without a
+complicated installation process. You can find it on <a class="reference external" href="https://github.com/rabauke/mpl">MPL
+GitHub</a>.</p>
+</section>
+<section id="sample-code-hello-world-using-mpl-with-mpi">
+<h3>Sample Code: Hello World using MPL with MPI<a class="headerlink" href="#sample-code-hello-world-using-mpl-with-mpi" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="explanation-1-including-mpl-include-mpl-mpl-hpp-includes-the">
+<h3>Explanation: 1. <strong>Including MPL</strong>: <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;mpl/mpl.hpp&gt;</span></code> includes the<a class="headerlink" href="#explanation-1-including-mpl-include-mpl-mpl-hpp-includes-the" title="Permalink to this heading">#</a></h3>
+<p>MPL header file, which provides the necessary classes and functions to interact
+with MPI. 2. <strong>Initialize Communicator</strong>: <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">mpl::communicator</span> <span class="pre">&amp;comm_world</span> <span class="pre">=</span> <span class="pre">mpl::environment::comm_world();</span></code> initializes the default communicator
+(similar to <code class="docutils literal notranslate"><span class="pre">MPI_COMM_WORLD</span></code> in standard MPI). 3. <strong>Rank and Size</strong>: -
+<code class="docutils literal notranslate"><span class="pre">comm_world.rank()</span></code>: This function returns the rank (or ID) of the current
+process. - <code class="docutils literal notranslate"><span class="pre">comm_world.size()</span></code>: This function returns the total number of
+processes participating in the communicator. 4. <strong>Printing</strong>: Each process
+prints its rank and the total number of processes, allowing us to see parallel
+execution.</p>
+</section>
+<section id="compilation-and-execution">
+<h3>Compilation and Execution<a class="headerlink" href="#compilation-and-execution" title="Permalink to this heading">#</a></h3>
+<p>To compile and run this program, you typically use an MPI compiler wrapper like
+<code class="docutils literal notranslate"><span class="pre">mpic++</span></code>:</p>
+<ol class="arabic">
+<li><p><strong>Compile the Program</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpic++<span class="w"> </span>-o<span class="w"> </span>hello_mpl<span class="w"> </span>hello_mpl.cpp
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+cmake<span class="w"> </span>--build<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+<li><p><strong>Run the Program</strong>: Specify the number of processes using <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> or <code class="docutils literal notranslate"><span class="pre">mpiexec</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">4</span><span class="w"> </span>./hello_mpl
+</pre></div>
+</div>
+</li>
+</ol>
+<p>This command will start 4 processes, and you should see output from each
+process indicating its rank.</p>
+</section>
+<section id="example-output">
+<h3>Example Output<a class="headerlink" href="#example-output" title="Permalink to this heading">#</a></h3>
+<p>If you run the program with 4 processes, you might see something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello, World from process 0 out of 4 processes!
+Hello, World from process 1 out of 4 processes!
+Hello, World from process 2 out of 4 processes!
+Hello, World from process 3 out of 4 processes!
+</pre></div>
+</div>
+</section>
+<section id="notes-ensure-that-the-mpl-headers-are-correctly-included-in-your-project">
+<h3>Notes: - Ensure that the MPL headers are correctly included in your project<a class="headerlink" href="#notes-ensure-that-the-mpl-headers-are-correctly-included-in-your-project" title="Permalink to this heading">#</a></h3>
+<p>path or specified using the include flag during compilation. - The order of
+output may vary as processes execute independently.</p>
+<p>This simple program demonstrates how to initialize an MPI environment using
+MPL, obtain information about each process, and print output in a parallelized
+manner.</p>
+</section>
+</section>
+<section id="matrix-matrix-multiplication">
+<h2>Matrix-Matrix Multiplication<a class="headerlink" href="#matrix-matrix-multiplication" title="Permalink to this heading">#</a></h2>
+<p>To create a C++ program using MPL (Message Passing Library) for MPI-based parallel matrix-matrix multiplication, we need to distribute the work across multiple processes. Each process will handle a portion of the matrix multiplication, and we’ll use MPI to manage communication between the processes.</p>
+<section id="parallel-matrix-matrix-multiplication-overview">
+<h3>Parallel Matrix-Matrix Multiplication Overview<a class="headerlink" href="#parallel-matrix-matrix-multiplication-overview" title="Permalink to this heading">#</a></h3>
+<p>For simplicity, consider square matrices of size <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">x</span> <span class="pre">N</span></code>. Each process will compute a part of the result matrix. We’ll use row-wise decomposition, where each process is responsible for a specific set of rows in the result matrix.</p>
+</section>
+<section id="steps-to-implement-the-program">
+<h3>Steps to Implement the Program:<a class="headerlink" href="#steps-to-implement-the-program" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Distribute the Matrices</strong>: We’ll distribute parts of matrices <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> among different MPI processes.</p></li>
+<li><p><strong>Perform Local Computation</strong>: Each process computes its part of the result matrix <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p></li>
+<li><p><strong>Gather Results</strong>: Use MPI to gather all parts of the result matrix <code class="docutils literal notranslate"><span class="pre">C</span></code> from different processes.</p></li>
+</ol>
+</section>
+<section id="c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication">
+<h3>C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication<a class="headerlink" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication" title="Permalink to this heading">#</a></h3>
+<p>Here’s a C++ program that performs parallel matrix-matrix multiplication using MPL:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpl/mpl.hpp&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">print_matrix</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">matrix</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">row</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">elem</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">row</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">communicator</span><span class="w"> </span><span class="o">&amp;</span><span class="n">comm_world</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">comm_world</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">comm_world</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">  </span><span class="c1">// Size of the matrix (N x N)</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">));</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">));</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span><span class="w"> </span><span class="c1">// Result matrix</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Initialize matrices A and B</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="w">                </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="w">                </span><span class="n">value</span><span class="o">++</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">print_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Matrix A&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">print_matrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Matrix B&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Broadcast matrix B to all processes</span>
+<span class="w">    </span><span class="n">comm_world</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Determine the number of rows each process will handle</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rows_per_process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">remaining_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">start_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rows_per_process</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">end_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rows_per_process</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">end_row</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">remaining_rows</span><span class="p">;</span><span class="w">  </span><span class="c1">// Last process may handle extra rows</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Each process computes its part of matrix C</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start_row</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">end_row</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Gather results from all processes to process 0</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">full_C</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">));</span>
+<span class="w">        </span><span class="n">comm_world</span><span class="p">.</span><span class="n">gather</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">full_C</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">print_matrix</span><span class="p">(</span><span class="n">full_C</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Result Matrix C&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">comm_world</span><span class="p">.</span><span class="n">gather</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="key-parts-of-the-code">
+<h3>Key Parts of the Code<a class="headerlink" href="#key-parts-of-the-code" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Matrix Initialization</strong>: Matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> are initialized in process 0. The program uses integer values for simplicity.</p></li>
+<li><p><strong>Broadcast Matrix <code class="docutils literal notranslate"><span class="pre">B</span></code></strong>: The matrix <code class="docutils literal notranslate"><span class="pre">B</span></code> is broadcasted from process 0 to all other processes using <code class="docutils literal notranslate"><span class="pre">comm_world.bcast(B.data(),</span> <span class="pre">B.size(),</span> <span class="pre">0);</span></code>. All processes receive matrix <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p></li>
+<li><p><strong>Local Computation</strong>: Each process computes its assigned rows of matrix <code class="docutils literal notranslate"><span class="pre">C</span></code> using the local data.</p></li>
+<li><p><strong>Gather Results</strong>: The results are gathered to process 0 using <code class="docutils literal notranslate"><span class="pre">comm_world.gather()</span></code>. The final result matrix <code class="docutils literal notranslate"><span class="pre">C</span></code> is printed by process 0.</p></li>
+</ol>
+</section>
+<section id="id1">
+<h3>Compilation and Execution<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Compile</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpic++<span class="w"> </span>-o<span class="w"> </span>matrix_multiplication<span class="w"> </span>matrix_multiplication.cpp
+</pre></div>
+</div>
+</li>
+<li><p><strong>Run</strong> (with 4 processes, for example):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">4</span><span class="w"> </span>./matrix_multiplication
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ensure that MPL is correctly installed and included in the include path.</p></li>
+<li><p>Adjust the matrix size <code class="docutils literal notranslate"><span class="pre">N</span></code> and number of processes to fit your system’s capability.</p></li>
+<li><p>This code assumes the number of rows (<code class="docutils literal notranslate"><span class="pre">N</span></code>) is divisible by the number of processes. If <code class="docutils literal notranslate"><span class="pre">N</span></code> is not divisible by <code class="docutils literal notranslate"><span class="pre">size</span></code>, the last process handles the remaining rows.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cpp_standard_parallelism.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">C++ Standard Parallelism</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-safety-and-modern-c-features-one-of-the-primary-benefits-of">1. <strong>Type Safety and Modern C++ Features:</strong> One of the primary benefits of</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-abstraction-and-usability-mpl-provides-a-higher-level">2. <strong>Improved Abstraction and Usability:</strong> MPL provides a higher-level</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-productivity-and-reduced-development-time-by-simplifying">3. <strong>Enhanced Productivity and Reduced Development Time:</strong> By simplifying</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability-and-performance-optimization-mpl-is-optimized-to-work">4. <strong>Scalability and Performance Optimization:</strong> MPL is optimized to work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portability-and-compatibility-mpl-is-designed-to-be-fully">5. <strong>Portability and Compatibility:</strong> MPL is designed to be fully</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites-1-mpi-library-you-need-an-mpi-implementation-such-as">Prerequisites 1. <strong>MPI Library</strong>: You need an MPI implementation such as</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-code-hello-world-using-mpl-with-mpi">Sample Code: Hello World using MPL with MPI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation-1-including-mpl-include-mpl-mpl-hpp-includes-the">Explanation: 1. <strong>Including MPL</strong>: <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;mpl/mpl.hpp&gt;</span></code> includes the</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-ensure-that-the-mpl-headers-are-correctly-included-in-your-project">Notes: - Ensure that the MPL headers are correctly included in your project</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-matrix-multiplication">Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication-overview">Parallel Matrix-Matrix Multiplication Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-implement-the-program">Steps to Implement the Program:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication">C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parts-of-the-code">Key Parts of the Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Compilation and Execution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By SMU O'Donnell Data Science and Research Computing Institute
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,902 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>C++ Standard Parallelism &#8212; Parallel Programming with C++ Standard Parallelism and the Message Passing Library</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cpp_standard_parallelism';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Message Passing Library (MPL)" href="mpi_with_mpl.html" />
+    <link rel="prev" title="Parallel Programming" href="parallel_programming.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.webp" class="logo__image only-light" alt="Parallel Programming with C++ Standard Parallelism and the Message Passing Library - Home"/>
+    <script>document.write(`<img src="_static/logo.webp" class="logo__image only-dark" alt="Parallel Programming with C++ Standard Parallelism and the Message Passing Library - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="parallel_programming.html">Parallel Programming</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">C++ Standard Parallelism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mpi_with_mpl.html">The Message Passing Library (MPL)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SouthernMethodistUniversity/parallel_cpp" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SouthernMethodistUniversity/parallel_cpp/issues/new?title=Issue%20on%20page%20%2Fcpp_standard_parallelism.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/cpp_standard_parallelism.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>C++ Standard Parallelism</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note-the-use-of-std-execution-par-ensures-that-the-printing-of">Note: - The use of <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code> ensures that the printing of</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation">Compilation:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world-with-thread-index">Hello, World! with Thread Index</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Explanation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication">Parallel Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-program-for-matrix-matrix-multiplication-using-parallelism">C++ Program for Matrix-Matrix Multiplication Using Parallelism</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Explanation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Compilation and Execution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Expected Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="c-standard-parallelism">
+<h1>C++ Standard Parallelism<a class="headerlink" href="#c-standard-parallelism" title="Permalink to this heading">#</a></h1>
+<p>C++ standard parallelism, introduced with the C++17 standard and expanded in
+C++20, brings significant benefits by offering a standardized and portable way
+to perform parallel computations within the language. This addition allows
+developers to leverage the power of multi-core processors directly through the
+C++ Standard Library, using well-defined parallel algorithms like
+<code class="docutils literal notranslate"><span class="pre">std::for_each</span></code>, <code class="docutils literal notranslate"><span class="pre">std::reduce</span></code>, and <code class="docutils literal notranslate"><span class="pre">std::transform</span></code>. One of the key advantages
+of C++ standard parallelism is that it simplifies the development process by
+providing a consistent API that abstracts away platform-specific details. This
+ensures that code can run across different environments with minimal changes,
+which is a stark contrast to the more platform-dependent approaches of using
+<code class="docutils literal notranslate"><span class="pre">pthreads</span></code> or OpenMP.</p>
+<p><strong>Benefits of C++ Standard Parallelism:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Portability and Consistency:</strong> C++ standard parallelism is designed to
+work across different compilers and operating systems, which ensures
+portability and consistency. Unlike <code class="docutils literal notranslate"><span class="pre">pthreads</span></code>, which are Unix-specific, or
+OpenMP, which requires specific compiler support, C++ standard parallelism uses
+the Standard Template Library (STL) constructs, making it inherently portable.
+This is beneficial for projects that need to be compiled and run on different
+platforms without modification.</p></li>
+<li><p><strong>Ease of Use:</strong> Standard parallelism in C++ integrates seamlessly with the
+existing STL, making it intuitive for developers who are already familiar with
+C++ standard libraries. It reduces the learning curve compared to <code class="docutils literal notranslate"><span class="pre">pthreads</span></code>,
+where explicit thread management, synchronization, and error handling are
+required, or OpenMP, which requires understanding of compiler directives and
+pragmas. The high-level abstractions provided by standard parallelism minimize
+the risk of common multithreading bugs such as data races and deadlocks.</p></li>
+<li><p><strong>Performance Optimization:</strong> While OpenMP is a powerful tool for
+high-performance computing due to its fine-grained control over parallel
+execution, C++ standard parallelism provides a balanced approach by leveraging
+the capabilities of underlying hardware through well-optimized library
+implementations. Although <code class="docutils literal notranslate"><span class="pre">pthreads</span></code> can be more flexible and powerful for
+certain low-level operations, they require more manual optimization and tuning,
+which can lead to more complex and less maintainable code. The C++ standard
+approach uses execution policies (<code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code>,
+<code class="docutils literal notranslate"><span class="pre">std::execution::par_unseq</span></code>) that allow the compiler and runtime to optimize
+parallel execution, potentially achieving performance close to or exceeding
+that of manually managed threads or OpenMP for many common tasks.</p></li>
+</ol>
+<p><strong>Contrast with Pthreads and OpenMP:</strong></p>
+<ul class="simple">
+<li><p><strong>Pthreads</strong> offer low-level thread control, which is highly powerful but
+also complex and error-prone. Developers must manage thread creation,
+synchronization (using mutexes, condition variables), and lifecycle, which
+increases the potential for bugs. C++ standard parallelism abstracts these
+complexities, allowing developers to focus on algorithmic logic rather than
+thread management.</p></li>
+<li><p><strong>OpenMP</strong> provides a higher-level interface compared to <code class="docutils literal notranslate"><span class="pre">pthreads</span></code> by using
+compiler directives to parallelize loops and sections of code. It offers
+scalability and is widely used in scientific and engineering applications.
+However, OpenMP requires a preprocessor and compiler that support it, and its
+directives can be less flexible when integrating deeply with C++ STL
+components. Standard parallelism, being a part of the language standard itself,
+naturally integrates with the C++ ecosystem, promoting more modular and
+maintainable code. Moreover, while OpenMP focuses on shared-memory parallelism,
+the C++ standard parallelism model is flexible enough to be extended for
+distributed computing scenarios.</p></li>
+</ul>
+<p>In conclusion, C++ standard parallelism offers a robust, portable, and
+easy-to-use alternative to traditional parallel programming models like
+<code class="docutils literal notranslate"><span class="pre">pthreads</span></code> and OpenMP. It leverages modern compiler optimizations and
+integrates naturally with C++ applications, providing a solid foundation for
+both performance and code maintainability.</p>
+<section id="hello-world">
+<h2>Hello, World!<a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h2>
+<p>Certainly! To write a “Hello, World!” program in C++ that utilizes C++ standard
+parallelism, we can use the features provided by the C++17 standard library.
+Specifically, we’ll use the <code class="docutils literal notranslate"><span class="pre">&lt;execution&gt;</span></code> header, which provides support for
+parallel execution policies.</p>
+<p>Below is a simple example that demonstrates how to use standard parallelism to
+print “Hello, World!” multiple times in parallel:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;execution&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Create a vector of 10 elements, each initialized to 0</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Use std::for_each with a parallel execution policy to print &quot;Hello, World!&quot;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">execution</span><span class="o">::</span><span class="n">par</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello, World!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="explanation">
+<h3>Explanation:<a class="headerlink" href="#explanation" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Include Headers</strong>: - <code class="docutils literal notranslate"><span class="pre">&lt;iostream&gt;</span></code>: For input-output operations. -
+<code class="docutils literal notranslate"><span class="pre">&lt;vector&gt;</span></code>: To use the <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> container. - <code class="docutils literal notranslate"><span class="pre">&lt;execution&gt;</span></code>: To access
+execution policies for parallelism. - <code class="docutils literal notranslate"><span class="pre">&lt;algorithm&gt;</span></code>: For using <code class="docutils literal notranslate"><span class="pre">std::for_each</span></code>.</p></li>
+<li><p><strong>Vector Initialization</strong>: - A vector <code class="docutils literal notranslate"><span class="pre">data</span></code> of size 10 is created and
+initialized with zeros. The elements are just placeholders to enable the
+iteration.</p></li>
+<li><p><strong>Parallel Execution</strong>: - <code class="docutils literal notranslate"><span class="pre">std::for_each</span></code>: This algorithm applies a function
+to each element in a range. - <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code>: This execution policy
+enables parallel execution of the algorithm. - <code class="docutils literal notranslate"><span class="pre">data.begin(),</span> <span class="pre">data.end()</span></code>:
+These denote the range of elements in the vector to be processed. - <code class="docutils literal notranslate"><span class="pre">[](int&amp;)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code>: A lambda function that will be executed for each element in the vector.
+It simply prints “Hello, World!” to the console.</p></li>
+</ol>
+</section>
+<section id="note-the-use-of-std-execution-par-ensures-that-the-printing-of">
+<h3>Note: - The use of <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code> ensures that the printing of<a class="headerlink" href="#note-the-use-of-std-execution-par-ensures-that-the-printing-of" title="Permalink to this heading">#</a></h3>
+<p>“Hello, World!” is attempted in parallel. However, the actual parallelism might
+vary depending on the implementation and the system’s ability to handle
+parallel tasks. - In a real-world scenario, especially with I/O operations like
+printing to the console, actual speedup may not be achieved due to I/O being a
+common bottleneck. The primary purpose here is to demonstrate the syntax and
+concept.</p>
+</section>
+<section id="compilation">
+<h3>Compilation:<a class="headerlink" href="#compilation" title="Permalink to this heading">#</a></h3>
+<p>To compile this program, you need to use a C++ compiler that supports C++17.
+For example, using <code class="docutils literal notranslate"><span class="pre">g++</span></code>, you can compile the code with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>Then run the program:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>This program should print “Hello, World!” ten times, potentially in parallel
+depending on the system’s threading and execution capabilities.</p>
+</section>
+</section>
+<section id="hello-world-with-thread-index">
+<h2>Hello, World! with Thread Index<a class="headerlink" href="#hello-world-with-thread-index" title="Permalink to this heading">#</a></h2>
+<p>To modify the program to print the thread index alongside “Hello, World!”, we
+need a way to identify the thread. In a standard parallel execution context
+with the C++ Standard Library, directly accessing the thread index isn’t part
+of the standard library’s parallelism features. However, we can use a
+combination of thread-local storage and atomic counters to emulate this
+behavior.</p>
+<p>Here’s an updated version of the “Hello, World!” program that also prints the
+thread index:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;execution&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;thread&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;atomic&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mutex&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Create a vector of 10 elements</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Atomic counter for thread index</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">thread_counter</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// Mutex for safe printing</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="w"> </span><span class="n">print_mutex</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Use std::for_each with a parallel execution policy</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">execution</span><span class="o">::</span><span class="n">par</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Get a unique index for each thread using atomic increment</span>
+<span class="w">        </span><span class="k">thread_local</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">thread_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread_counter</span><span class="o">++</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Lock for safe printing</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">(</span><span class="n">print_mutex</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Print &quot;Hello, World!&quot; with the thread index</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello, World! from thread index: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">thread_index</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Explanation:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Thread Index Management</strong>: - <code class="docutils literal notranslate"><span class="pre">std::atomic&lt;int&gt;</span> <span class="pre">thread_counter{0};</span></code>: An
+atomic counter is used to assign a unique index to each thread. - <code class="docutils literal notranslate"><span class="pre">thread_local</span> <span class="pre">int</span> <span class="pre">thread_index</span> <span class="pre">=</span> <span class="pre">thread_counter++;</span></code>: This line ensures that each thread gets
+a unique index. The <code class="docutils literal notranslate"><span class="pre">thread_local</span></code> specifier ensures that each thread has its
+own instance of the <code class="docutils literal notranslate"><span class="pre">thread_index</span></code> variable.</p></li>
+<li><p><strong>Synchronization for Output</strong>: - <code class="docutils literal notranslate"><span class="pre">std::mutex</span> <span class="pre">print_mutex;</span></code>: A mutex is used
+to ensure that output to <code class="docutils literal notranslate"><span class="pre">std::cout</span></code> is thread-safe and doesn’t get jumbled. -
+<code class="docutils literal notranslate"><span class="pre">std::lock_guard&lt;std::mutex&gt;</span> <span class="pre">lock(print_mutex);</span></code>: This creates a scoped lock
+around the <code class="docutils literal notranslate"><span class="pre">std::cout</span></code> statement, ensuring that only one thread prints at a
+time.</p></li>
+<li><p><strong>Parallel Execution with <code class="docutils literal notranslate"><span class="pre">std::for_each</span></code></strong>: - The <code class="docutils literal notranslate"><span class="pre">std::for_each</span></code> loop is
+executed in parallel using <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code>. - Each thread gets its own
+index via the <code class="docutils literal notranslate"><span class="pre">thread_index</span></code> variable and prints a message to the console.</p></li>
+</ol>
+</section>
+<section id="compilation-and-execution">
+<h3>Compilation and Execution:<a class="headerlink" href="#compilation-and-execution" title="Permalink to this heading">#</a></h3>
+<p>Compile the program using a C++17-compatible compiler, like <code class="docutils literal notranslate"><span class="pre">g++</span></code>, and then run
+it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-o<span class="w"> </span>hello_parallel_with_thread_index<span class="w"> </span>hello_parallel_with_thread_index.cpp
+./hello_parallel_with_thread_index
+</pre></div>
+</div>
+</section>
+<section id="expected-output">
+<h3>Expected Output:<a class="headerlink" href="#expected-output" title="Permalink to this heading">#</a></h3>
+<p>The output will look something like this, with the order of lines potentially
+varying due to the parallel execution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello, World! from thread index: 0
+Hello, World! from thread index: 1
+Hello, World! from thread index: 2
+...
+</pre></div>
+</div>
+<p>Each “Hello, World!” line will be accompanied by a thread index, demonstrating
+the use of multiple threads in parallel. The actual number of lines and the
+indices may vary based on the system and the runtime environment’s handling of
+parallel execution.</p>
+</section>
+</section>
+<section id="parallel-matrix-matrix-multiplication">
+<h2>Parallel Matrix-Matrix Multiplication<a class="headerlink" href="#parallel-matrix-matrix-multiplication" title="Permalink to this heading">#</a></h2>
+<p>To perform matrix-matrix multiplication using C++ standard parallelism, we can
+utilize features from the C++17 standard, such as <code class="docutils literal notranslate"><span class="pre">std::for_each</span></code> with a
+parallel execution policy from the <code class="docutils literal notranslate"><span class="pre">&lt;execution&gt;</span></code> header. Below is a C++ program
+that demonstrates matrix-matrix multiplication using standard parallelism.</p>
+<section id="c-program-for-matrix-matrix-multiplication-using-parallelism">
+<h3>C++ Program for Matrix-Matrix Multiplication Using Parallelism<a class="headerlink" href="#c-program-for-matrix-matrix-multiplication-using-parallelism" title="Permalink to this heading">#</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;execution&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+
+<span class="c1">// Function to initialize matrices with sample data</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">initializeMatrix</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;</span><span class="w"> </span><span class="n">matrix</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">matrix</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">// Function to perform matrix multiplication</span>
+<span class="n">Matrix</span><span class="w"> </span><span class="nf">multiplyMatrices</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Matrix</span><span class="o">&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Matrix</span><span class="o">&amp;</span><span class="w"> </span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowsA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colsA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowsB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colsB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Result matrix with dimensions rowsA x colsB</span>
+<span class="w">    </span><span class="n">Matrix</span><span class="w"> </span><span class="n">C</span><span class="p">(</span><span class="n">rowsA</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">colsB</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Perform matrix multiplication using parallelism</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">execution</span><span class="o">::</span><span class="n">par</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">C</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">row</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">row</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">&amp;</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w">  </span><span class="c1">// Calculate the row index</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">colsB</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">row</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">colsA</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">row</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Function to print a matrix</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">printMatrix</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Matrix</span><span class="o">&amp;</span><span class="w"> </span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">row</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Define dimensions for matrices</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowsA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">colsA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowsB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">colsB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Initialize matrices</span>
+<span class="w">    </span><span class="n">Matrix</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
+<span class="w">    </span><span class="n">initializeMatrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">rowsA</span><span class="p">,</span><span class="w"> </span><span class="n">colsA</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">  </span><span class="c1">// Fill A with 1s</span>
+<span class="w">    </span><span class="n">initializeMatrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">rowsB</span><span class="p">,</span><span class="w"> </span><span class="n">colsB</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">  </span><span class="c1">// Fill B with 2s</span>
+
+<span class="w">    </span><span class="c1">// Perform matrix multiplication</span>
+<span class="w">    </span><span class="n">Matrix</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiplyMatrices</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Print the result matrix</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Matrix A:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printMatrix</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Matrix B:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printMatrix</span><span class="p">(</span><span class="n">B</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Result Matrix C (A x B):&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printMatrix</span><span class="p">(</span><span class="n">C</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Explanation:<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Matrix Representation</strong>: - The matrices are represented using the <code class="docutils literal notranslate"><span class="pre">Matrix</span></code>
+type, which is a <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> of <code class="docutils literal notranslate"><span class="pre">std::vector&lt;int&gt;</span></code>. This structure represents
+a 2D matrix.</p></li>
+<li><p><strong>Matrix Initialization</strong>: - The <code class="docutils literal notranslate"><span class="pre">initializeMatrix</span></code> function initializes a
+given matrix with a specific number of rows, columns, and a default value. In
+this example, it initializes all elements of matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code> and all elements
+of matrix <code class="docutils literal notranslate"><span class="pre">B</span></code> to <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p><strong>Matrix Multiplication</strong>: - The <code class="docutils literal notranslate"><span class="pre">multiplyMatrices</span></code> function performs matrix
+multiplication. It takes two matrices <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> as input and computes their
+product matrix <code class="docutils literal notranslate"><span class="pre">C</span></code>. - The function uses <code class="docutils literal notranslate"><span class="pre">std::for_each</span></code> with
+<code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code> to enable parallel processing of rows. The lambda
+function inside <code class="docutils literal notranslate"><span class="pre">std::for_each</span></code> computes the dot product for each element in
+the resulting matrix <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p></li>
+<li><p><strong>Matrix Printing</strong>: - The <code class="docutils literal notranslate"><span class="pre">printMatrix</span></code> function prints the contents of a
+matrix to the console.</p></li>
+<li><p><strong>Main Function</strong>: - In the <code class="docutils literal notranslate"><span class="pre">main</span></code> function, two matrices <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> are
+initialized. Matrix multiplication is performed using the <code class="docutils literal notranslate"><span class="pre">multiplyMatrices</span></code>
+function, and the result is printed.</p></li>
+</ol>
+</section>
+<section id="id3">
+<h3>Compilation and Execution<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>To compile and run the program, you need a C++17-compatible compiler like
+<code class="docutils literal notranslate"><span class="pre">g++</span></code>. Use the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-o<span class="w"> </span>matrix_multiplication_parallel<span class="w"> </span>matrix_multiplication_parallel.cpp
+./matrix_multiplication_parallel
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Expected Output<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>The output of the program will look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Matrix</span> <span class="n">A</span><span class="p">:</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> 
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> 
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> 
+<span class="n">Matrix</span> <span class="n">B</span><span class="p">:</span>
+<span class="mi">2</span> <span class="mi">2</span> <span class="mi">2</span> 
+<span class="mi">2</span> <span class="mi">2</span> <span class="mi">2</span> 
+<span class="mi">2</span> <span class="mi">2</span> <span class="mi">2</span> 
+<span class="n">Result</span> <span class="n">Matrix</span> <span class="n">C</span> <span class="p">(</span><span class="n">A</span> <span class="n">x</span> <span class="n">B</span><span class="p">):</span>
+<span class="mi">6</span> <span class="mi">6</span> <span class="mi">6</span> 
+<span class="mi">6</span> <span class="mi">6</span> <span class="mi">6</span> 
+<span class="mi">6</span> <span class="mi">6</span> <span class="mi">6</span> 
+</pre></div>
+</div>
+</section>
+<section id="notes">
+<h3>Notes:<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The program performs matrix multiplication in parallel using the execution
+policy <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code>. This parallelization can improve performance on
+multi-core systems.</p></li>
+<li><p>Ensure that the matrices are compatible for multiplication (i.e., the number
+of columns in <code class="docutils literal notranslate"><span class="pre">A</span></code> should equal the number of rows in <code class="docutils literal notranslate"><span class="pre">B</span></code>).</p></li>
+<li><p>The order of rows processed in parallel may vary due to the nature of
+parallel execution, but the result will be consistent for a given input.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="parallel_programming.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Parallel Programming</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="mpi_with_mpl.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Message Passing Library (MPL)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note-the-use-of-std-execution-par-ensures-that-the-printing-of">Note: - The use of <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code> ensures that the printing of</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation">Compilation:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world-with-thread-index">Hello, World! with Thread Index</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Explanation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication">Parallel Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-program-for-matrix-matrix-multiplication-using-parallelism">C++ Program for Matrix-Matrix Multiplication Using Parallelism</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Explanation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Compilation and Execution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Expected Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By SMU O'Donnell Data Science and Research Computing Institute
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
