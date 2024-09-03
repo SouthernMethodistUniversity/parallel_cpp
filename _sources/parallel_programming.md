@@ -218,11 +218,11 @@ new team members.
 
 Incorporating a testing framework into the development process ensures that
 code behaves as expected and that changes or new features do not introduce
-unexpected issues. Automated testing frameworks, such as JUnit for Java, PyTest
-for Python, or NUnit for .NET, allow developers to write and run tests quickly
-and consistently. These frameworks support various types of tests, including
-unit tests, integration tests, and functional tests, each targeting different
-levels of the application.
+unexpected issues. Automated testing frameworks, such as Catch2 for C++, PyTest
+for Python, CTest, etc., allow developers to write and run tests quickly and
+consistently. These frameworks support various types of tests, including unit
+tests, integration tests, and functional tests, each targeting different levels
+of the application.
 
 The benefits of using a testing framework are multifaceted. Automated tests can
 catch bugs early in the development cycle, reducing the time and cost

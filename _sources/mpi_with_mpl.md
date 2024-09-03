@@ -78,6 +78,10 @@ installed on your system.
 include it in your project without a complicated installation process. You can
 find it on [MPL GitHub](https://github.com/rabauke/mpl).
 
+:::{tip}
+On M3, `module load gcc/11.2.0 openmpi`.
+:::
+
 #### Hello World using MPL with MPI
 
 ```{literalinclude} ../src/hello_mpl/hello_mpl.cpp
