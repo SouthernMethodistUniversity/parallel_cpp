@@ -72,7 +72,7 @@ both performance and code maintainability.
 
 ### Hello, World!
 
-Certainly! To write a "Hello, World!" program in C++ that utilizes C++ standard
+To write a "Hello, World!" program in C++ that utilizes C++ standard
 parallelism, we can use the features provided by the C++17 standard library.
 Specifically, we'll use the `<execution>` header, which provides support for
 parallel execution policies.
