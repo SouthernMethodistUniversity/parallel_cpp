@@ -343,7 +343,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -359,6 +361,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -381,6 +392,22 @@ into using MPL to simplify the complexities of MPI programming, enabling
 efficient communication between distributed computing nodes. By the end of the
 workshop, attendees will have a solid understanding of how to harness these
 powerful tools to write scalable and efficient parallel applications.</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://southernmethodistuniversity.github.io/parallel_cpp/">ODSRCI Workshop: Parallel C++</a></p></li>
+<li><p><a class="reference external" href="https://developer.nvidia.com/blog/developing-accelerated-code-with-standard-language-parallelism/">Developing Accelerated Code with Standard Language Parallelism</a></p></li>
+<li><p><a class="reference external" href="https://rabauke.github.io/mpl/html/">MPL: A message passing library</a></p></li>
+</ul>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/parallel_cpp_qr.png"><img alt="QR code for Parallel C++ workshop website." src="_images/parallel_cpp_qr.png" style="width: 328.0px; height: 328.0px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">QR code for Parallel C++ workshop website.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="parallel_programming.html">Parallel Programming</a></li>
@@ -388,6 +415,7 @@ powerful tools to write scalable and efficient parallel applications.</p>
 <li class="toctree-l1"><a class="reference internal" href="mpi_with_mpl.html">The Message Passing Library (MPL)</a></li>
 </ul>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -435,6 +463,21 @@ powerful tools to write scalable and efficient parallel applications.</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
