@@ -367,24 +367,26 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note-the-use-of-std-execution-par-ensures-that-the-printing-of">Note: - The use of <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code> ensures that the printing of</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation">Compilation:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-c-standard-parallelism">Benefits of C++ Standard Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation">Compilation:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world-with-thread-index">Hello, World! with Thread Index</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Explanation:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world-with-thread-index">Hello, World! with Thread Index</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Explanation:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution:</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication">Parallel Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Explanation:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Compilation and Execution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Expected Output</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication">Parallel Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-program-for-matrix-matrix-multiplication-using-parallelism">C++ Program for Matrix-Matrix Multiplication Using Parallelism</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Explanation:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Compilation and Execution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Expected Output</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes:</a></li>
 </ul>
 </li>
 </ul>
@@ -411,7 +413,8 @@ providing a consistent API that abstracts away platform-specific details. This
 ensures that code can run across different environments with minimal changes,
 which is a stark contrast to the more platform-dependent approaches of using
 <code class="docutils literal notranslate"><span class="pre">pthreads</span></code> or OpenMP.</p>
-<p><strong>Benefits of C++ Standard Parallelism:</strong></p>
+<section id="benefits-of-c-standard-parallelism">
+<h2>Benefits of C++ Standard Parallelism<a class="headerlink" href="#benefits-of-c-standard-parallelism" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Portability and Consistency:</strong> C++ standard parallelism is designed to
 work across different compilers and operating systems, which ensures
@@ -463,8 +466,11 @@ easy-to-use alternative to traditional parallel programming models like
 <code class="docutils literal notranslate"><span class="pre">pthreads</span></code> and OpenMP. It leverages modern compiler optimizations and
 integrates naturally with C++ applications, providing a solid foundation for
 both performance and code maintainability.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
 <section id="hello-world">
-<h2>Hello, World!<a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h2>
+<h3>Hello, World!<a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h3>
 <p>Certainly! To write a “Hello, World!” program in C++ that utilizes C++ standard
 parallelism, we can use the features provided by the C++17 standard library.
 Specifically, we’ll use the <code class="docutils literal notranslate"><span class="pre">&lt;execution&gt;</span></code> header, which provides support for
@@ -490,7 +496,7 @@ print “Hello, World!” multiple times in parallel:</p>
 </pre></div>
 </div>
 <section id="explanation">
-<h3>Explanation:<a class="headerlink" href="#explanation" title="Permalink to this heading">#</a></h3>
+<h4>Explanation:<a class="headerlink" href="#explanation" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><strong>Include Headers</strong>: - <code class="docutils literal notranslate"><span class="pre">&lt;iostream&gt;</span></code>: For input-output operations. -
 <code class="docutils literal notranslate"><span class="pre">&lt;vector&gt;</span></code>: To use the <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> container. - <code class="docutils literal notranslate"><span class="pre">&lt;execution&gt;</span></code>: To access
@@ -504,18 +510,20 @@ enables parallel execution of the algorithm. - <code class="docutils literal not
 These denote the range of elements in the vector to be processed. - <code class="docutils literal notranslate"><span class="pre">[](int&amp;)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code>: A lambda function that will be executed for each element in the vector.
 It simply prints “Hello, World!” to the console.</p></li>
 </ol>
-</section>
-<section id="note-the-use-of-std-execution-par-ensures-that-the-printing-of">
-<h3>Note: - The use of <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code> ensures that the printing of<a class="headerlink" href="#note-the-use-of-std-execution-par-ensures-that-the-printing-of" title="Permalink to this heading">#</a></h3>
-<p>“Hello, World!” is attempted in parallel. However, the actual parallelism might
+<p>Note:</p>
+<ul class="simple">
+<li><p>The use of <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code> ensures that the printing of
+“Hello, World!” is attempted in parallel. However, the actual parallelism might
 vary depending on the implementation and the system’s ability to handle
-parallel tasks. - In a real-world scenario, especially with I/O operations like
+parallel tasks.</p></li>
+<li><p>In a real-world scenario, especially with I/O operations like
 printing to the console, actual speedup may not be achieved due to I/O being a
 common bottleneck. The primary purpose here is to demonstrate the syntax and
-concept.</p>
+concept.</p></li>
+</ul>
 </section>
 <section id="compilation">
-<h3>Compilation:<a class="headerlink" href="#compilation" title="Permalink to this heading">#</a></h3>
+<h4>Compilation:<a class="headerlink" href="#compilation" title="Permalink to this heading">#</a></h4>
 <p>To compile this program, you need to use a C++ compiler that supports C++17.
 For example, using <code class="docutils literal notranslate"><span class="pre">g++</span></code>, you can compile the code with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
@@ -530,7 +538,7 @@ depending on the system’s threading and execution capabilities.</p>
 </section>
 </section>
 <section id="hello-world-with-thread-index">
-<h2>Hello, World! with Thread Index<a class="headerlink" href="#hello-world-with-thread-index" title="Permalink to this heading">#</a></h2>
+<h3>Hello, World! with Thread Index<a class="headerlink" href="#hello-world-with-thread-index" title="Permalink to this heading">#</a></h3>
 <p>To modify the program to print the thread index alongside “Hello, World!”, we
 need a way to identify the thread. In a standard parallel execution context
 with the C++ Standard Library, directly accessing the thread index isn’t part
@@ -574,7 +582,7 @@ thread index:</p>
 </pre></div>
 </div>
 <section id="id1">
-<h3>Explanation:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h4>Explanation:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><strong>Thread Index Management</strong>: - <code class="docutils literal notranslate"><span class="pre">std::atomic&lt;int&gt;</span> <span class="pre">thread_counter{0};</span></code>: An
 atomic counter is used to assign a unique index to each thread. - <code class="docutils literal notranslate"><span class="pre">thread_local</span> <span class="pre">int</span> <span class="pre">thread_index</span> <span class="pre">=</span> <span class="pre">thread_counter++;</span></code>: This line ensures that each thread gets
@@ -591,13 +599,14 @@ index via the <code class="docutils literal notranslate"><span class="pre">threa
 </ol>
 </section>
 <section id="compilation-and-execution">
-<h3>Compilation and Execution:<a class="headerlink" href="#compilation-and-execution" title="Permalink to this heading">#</a></h3>
+<h4>Compilation and Execution:<a class="headerlink" href="#compilation-and-execution" title="Permalink to this heading">#</a></h4>
 <p>Compile the program using a C++17-compatible compiler, like <code class="docutils literal notranslate"><span class="pre">g++</span></code>, and then run
 it:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-o<span class="w"> </span>hello_parallel_with_thread_index<span class="w"> </span>hello_parallel_with_thread_index.cpp
 ./hello_parallel_with_thread_index
 </pre></div>
 </div>
+</section>
 </section>
 <section id="expected-output">
 <h3>Expected Output:<a class="headerlink" href="#expected-output" title="Permalink to this heading">#</a></h3>
@@ -614,15 +623,12 @@ the use of multiple threads in parallel. The actual number of lines and the
 indices may vary based on the system and the runtime environment’s handling of
 parallel execution.</p>
 </section>
-</section>
 <section id="parallel-matrix-matrix-multiplication">
-<h2>Parallel Matrix-Matrix Multiplication<a class="headerlink" href="#parallel-matrix-matrix-multiplication" title="Permalink to this heading">#</a></h2>
+<h3>Parallel Matrix-Matrix Multiplication<a class="headerlink" href="#parallel-matrix-matrix-multiplication" title="Permalink to this heading">#</a></h3>
 <p>To perform matrix-matrix multiplication using C++ standard parallelism, we can
 utilize features from the C++17 standard, such as <code class="docutils literal notranslate"><span class="pre">std::for_each</span></code> with a
 parallel execution policy from the <code class="docutils literal notranslate"><span class="pre">&lt;execution&gt;</span></code> header. Below is a C++ program
 that demonstrates matrix-matrix multiplication using standard parallelism.</p>
-<section id="c-program-for-matrix-matrix-multiplication-using-parallelism">
-<h3>C++ Program for Matrix-Matrix Multiplication Using Parallelism<a class="headerlink" href="#c-program-for-matrix-matrix-multiplication-using-parallelism" title="Permalink to this heading">#</a></h3>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;execution&gt;</span>
@@ -696,9 +702,8 @@ that demonstrates matrix-matrix multiplication using standard parallelism.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</section>
 <section id="id2">
-<h3>Explanation:<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h4>Explanation:<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><strong>Matrix Representation</strong>: - The matrices are represented using the <code class="docutils literal notranslate"><span class="pre">Matrix</span></code>
 type, which is a <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> of <code class="docutils literal notranslate"><span class="pre">std::vector&lt;int&gt;</span></code>. This structure represents
@@ -721,7 +726,7 @@ function, and the result is printed.</p></li>
 </ol>
 </section>
 <section id="id3">
-<h3>Compilation and Execution<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h4>Compilation and Execution<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
 <p>To compile and run the program, you need a C++17-compatible compiler like
 <code class="docutils literal notranslate"><span class="pre">g++</span></code>. Use the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-o<span class="w"> </span>matrix_multiplication_parallel<span class="w"> </span>matrix_multiplication_parallel.cpp
@@ -730,7 +735,7 @@ function, and the result is printed.</p></li>
 </div>
 </section>
 <section id="id4">
-<h3>Expected Output<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h4>Expected Output<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
 <p>The output of the program will look like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Matrix</span> <span class="n">A</span><span class="p">:</span>
 <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> 
@@ -748,7 +753,7 @@ function, and the result is printed.</p></li>
 </div>
 </section>
 <section id="notes">
-<h3>Notes:<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h3>
+<h4>Notes:<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>The program performs matrix multiplication in parallel using the execution
 policy <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code>. This parallelization can improve performance on
@@ -758,6 +763,7 @@ of columns in <code class="docutils literal notranslate"><span class="pre">A</sp
 <li><p>The order of rows processed in parallel may vary due to the nature of
 parallel execution, but the result will be consistent for a given input.</p></li>
 </ul>
+</section>
 </section>
 </section>
 </section>
@@ -825,24 +831,26 @@ parallel execution, but the result will be consistent for a given input.</p></li
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note-the-use-of-std-execution-par-ensures-that-the-printing-of">Note: - The use of <code class="docutils literal notranslate"><span class="pre">std::execution::par</span></code> ensures that the printing of</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation">Compilation:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-c-standard-parallelism">Benefits of C++ Standard Parallelism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation">Compilation:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world-with-thread-index">Hello, World! with Thread Index</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Explanation:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world-with-thread-index">Hello, World! with Thread Index</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Explanation:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution:</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication">Parallel Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Explanation:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Compilation and Execution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Expected Output</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication">Parallel Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-program-for-matrix-matrix-multiplication-using-parallelism">C++ Program for Matrix-Matrix Multiplication Using Parallelism</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Explanation:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Compilation and Execution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Expected Output</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes:</a></li>
 </ul>
 </li>
 </ul>

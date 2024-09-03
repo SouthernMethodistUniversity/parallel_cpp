@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'parallel_programming';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -367,20 +369,26 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-parallel-programming">Overview of Parallel Programming</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-strategies-in-parallel-programming">Decomposition Strategies in Parallel Programming</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-and-considerations">Challenges and Considerations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-parallel-scaling">Overview of Parallel Scaling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strong-scaling">Strong Scaling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-scaling">Weak Scaling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amdahl-s-law">Amdahl’s Law</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gustafson-s-law">Gustafson’s Law</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability-challenges-and-considerations">Scalability Challenges and Considerations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-good-programming-practices">Benefits of Good Programming Practices</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-control-with-git">Version Control with Git</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-testing-framework">Using a Testing Framework</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-paradigms-test-driven-development-tdd">Development Paradigms: Test-Driven Development (TDD)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-parallel-programming">Overview of Parallel Programming</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-strategies-in-parallel-programming">Decomposition Strategies in Parallel Programming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-and-considerations">Challenges and Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-parallel-scaling">Overview of Parallel Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strong-scaling">Strong Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-scaling">Weak Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amdahl-s-law">Amdahl’s Law</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gustafson-s-law">Gustafson’s Law</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability-challenges-and-considerations">Scalability Challenges and Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-good-programming-practices">Benefits of Good Programming Practices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#version-control-with-git">Version Control with Git</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-testing-framework">Using a Testing Framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#development-paradigms-test-driven-development-tdd">Development Paradigms: Test-Driven Development (TDD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -413,9 +421,8 @@ different machines in a distributed network. Effective parallel programming
 requires careful consideration of task decomposition, synchronization, data
 sharing, and communication to minimize overheads like data conflicts,
 deadlocks, and inefficiencies caused by poor load balancing.</p>
-</section>
 <section id="decomposition-strategies-in-parallel-programming">
-<h2>Decomposition Strategies in Parallel Programming<a class="headerlink" href="#decomposition-strategies-in-parallel-programming" title="Permalink to this heading">#</a></h2>
+<h3>Decomposition Strategies in Parallel Programming<a class="headerlink" href="#decomposition-strategies-in-parallel-programming" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>Task Decomposition</strong>: Task decomposition, also known as functional
 decomposition, involves dividing a problem into distinct tasks or functions
@@ -462,7 +469,7 @@ specific needs and structure of the problem.</p></li>
 </ol>
 </section>
 <section id="challenges-and-considerations">
-<h2>Challenges and Considerations<a class="headerlink" href="#challenges-and-considerations" title="Permalink to this heading">#</a></h2>
+<h3>Challenges and Considerations<a class="headerlink" href="#challenges-and-considerations" title="Permalink to this heading">#</a></h3>
 <p>Parallel programming introduces several challenges, such as ensuring that tasks
 are properly synchronized and that data consistency is maintained, especially
 when tasks share data. Load balancing is critical to ensure that all processing
@@ -476,6 +483,7 @@ efficiently but also managing inter-process communication, synchronization, and
 data dependencies to optimize overall performance and achieve the desired
 computational goals.</p>
 </section>
+</section>
 <section id="overview-of-parallel-scaling">
 <h2>Overview of Parallel Scaling<a class="headerlink" href="#overview-of-parallel-scaling" title="Permalink to this heading">#</a></h2>
 <p>Parallel scaling is a fundamental concept in parallel computing that refers to
@@ -487,9 +495,8 @@ primary types of scaling in parallel computing: strong scaling and weak
 scaling. Understanding these concepts, along with related principles like
 Amdahl’s Law, helps developers design and evaluate parallel algorithms and
 applications.</p>
-</section>
 <section id="strong-scaling">
-<h2>Strong Scaling<a class="headerlink" href="#strong-scaling" title="Permalink to this heading">#</a></h2>
+<h3>Strong Scaling<a class="headerlink" href="#strong-scaling" title="Permalink to this heading">#</a></h3>
 <p><strong>Strong scaling</strong> refers to the ability of a parallel system to decrease the
 execution time of a fixed-size problem as more processors are added. In other
 words, strong scaling measures how well a parallel system can handle the same
@@ -504,7 +511,7 @@ these overheads can become significant, limiting the benefits of adding more
 resources. Amdahl’s Law is a key principle that quantifies this limitation.</p>
 </section>
 <section id="weak-scaling">
-<h2>Weak Scaling<a class="headerlink" href="#weak-scaling" title="Permalink to this heading">#</a></h2>
+<h3>Weak Scaling<a class="headerlink" href="#weak-scaling" title="Permalink to this heading">#</a></h3>
 <p><strong>Weak scaling</strong> examines the performance of a parallel system by keeping the
 workload per processor constant while increasing the number of processors and
 the overall problem size proportionally. In weak scaling, the goal is to
@@ -519,15 +526,20 @@ management of data distribution, load balancing, and minimizing inter-processor
 communication.</p>
 </section>
 <section id="amdahl-s-law">
-<h2>Amdahl’s Law<a class="headerlink" href="#amdahl-s-law" title="Permalink to this heading">#</a></h2>
+<h3>Amdahl’s Law<a class="headerlink" href="#amdahl-s-law" title="Permalink to this heading">#</a></h3>
 <p><strong>Amdahl’s Law</strong> is a fundamental formula that describes the potential speedup
 of a parallel program as a function of the fraction of the code that can be
 parallelized. According to Amdahl’s Law, the maximum speedup (( S ))
 achievable by a parallel system with ( N ) processors is given by:</p>
-<p>[ S = \frac{1}{(1 - P) + \frac{P}{N}} ]</p>
-<p>Where: - ( P ) is the proportion of the program that can be parallelized. -
-( 1 - P ) is the proportion of the program that is inherently sequential and
-cannot be parallelized. - ( N ) is the number of processors.</p>
+<div class="math notranslate nohighlight">
+\[S = \frac{1}{(1 - P) + \frac{P}{N}}\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P\)</span> is the proportion of the program that can be parallelized.</p></li>
+<li><p><span class="math notranslate nohighlight">\(1 - P\)</span> is the proportion of the program that is inherently sequential and
+cannot be parallelized.</p></li>
+<li><p><span class="math notranslate nohighlight">\(N\)</span> is the number of processors.</p></li>
+</ul>
 <p>Amdahl’s Law implies that even with an infinite number of processors, the
 speedup is limited by the sequential portion of the code. For example, if only
 90% of a program can be parallelized, the maximum speedup is limited to 10x,
@@ -536,7 +548,7 @@ optimizing the parallelizable portions of an application to achieve significant
 performance improvements.</p>
 </section>
 <section id="gustafson-s-law">
-<h2>Gustafson’s Law<a class="headerlink" href="#gustafson-s-law" title="Permalink to this heading">#</a></h2>
+<h3>Gustafson’s Law<a class="headerlink" href="#gustafson-s-law" title="Permalink to this heading">#</a></h3>
 <p>In contrast to Amdahl’s Law, <strong>Gustafson’s Law</strong> suggests that the limitations
 of Amdahl’s Law can be mitigated by increasing the problem size. It argues that
 as the number of processors increases, the overall problem size should also
@@ -547,7 +559,7 @@ additional computational resources without being constrained by the sequential
 parts of the program.</p>
 </section>
 <section id="scalability-challenges-and-considerations">
-<h2>Scalability Challenges and Considerations<a class="headerlink" href="#scalability-challenges-and-considerations" title="Permalink to this heading">#</a></h2>
+<h3>Scalability Challenges and Considerations<a class="headerlink" href="#scalability-challenges-and-considerations" title="Permalink to this heading">#</a></h3>
 <p>When designing parallel systems and algorithms, developers must carefully
 consider the scalability challenges imposed by communication overhead, load
 imbalance, and memory contention. Efficient parallel scaling requires
@@ -563,6 +575,7 @@ these principles, developers can make informed decisions about the design and
 implementation of parallel algorithms to achieve the best possible performance
 on modern multi-core and distributed computing platforms.</p>
 </section>
+</section>
 <section id="benefits-of-good-programming-practices">
 <h2>Benefits of Good Programming Practices<a class="headerlink" href="#benefits-of-good-programming-practices" title="Permalink to this heading">#</a></h2>
 <p>Good programming practices are essential for creating reliable, maintainable,
@@ -573,9 +586,8 @@ Test-Driven Development (TDD) can significantly enhance the quality and
 robustness of software projects. These practices are not only beneficial for
 individual developers but are also crucial for teams working on large-scale or
 long-term projects.</p>
-</section>
 <section id="version-control-with-git">
-<h2>Version Control with Git<a class="headerlink" href="#version-control-with-git" title="Permalink to this heading">#</a></h2>
+<h3>Version Control with Git<a class="headerlink" href="#version-control-with-git" title="Permalink to this heading">#</a></h3>
 <p>Using version control systems, particularly Git, is one of the foundational
 practices of modern software development. Git allows developers to track
 changes in their codebase, manage different versions, and collaborate
@@ -594,7 +606,7 @@ to identify and fix bugs, understand the evolution of the codebase, and onboard
 new team members.</p>
 </section>
 <section id="using-a-testing-framework">
-<h2>Using a Testing Framework<a class="headerlink" href="#using-a-testing-framework" title="Permalink to this heading">#</a></h2>
+<h3>Using a Testing Framework<a class="headerlink" href="#using-a-testing-framework" title="Permalink to this heading">#</a></h3>
 <p>Incorporating a testing framework into the development process ensures that
 code behaves as expected and that changes or new features do not introduce
 unexpected issues. Automated testing frameworks, such as JUnit for Java, PyTest
@@ -613,7 +625,7 @@ integration systems can run these tests automatically upon each commit,
 ensuring that only code that passes all tests is merged into the main branch.</p>
 </section>
 <section id="development-paradigms-test-driven-development-tdd">
-<h2>Development Paradigms: Test-Driven Development (TDD)<a class="headerlink" href="#development-paradigms-test-driven-development-tdd" title="Permalink to this heading">#</a></h2>
+<h3>Development Paradigms: Test-Driven Development (TDD)<a class="headerlink" href="#development-paradigms-test-driven-development-tdd" title="Permalink to this heading">#</a></h3>
 <p>Test-Driven Development (TDD) is a development paradigm that emphasizes writing
 tests before writing the actual code. The TDD process typically follows a
 simple cycle: write a failing test, implement the minimal code necessary to
@@ -632,7 +644,7 @@ they do not break existing functionality. TDD can reduce the number of bugs and
 the time required for debugging and ultimately leads to more reliable software.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
 <p>Good programming practices, including using version control systems like Git,
 adopting testing frameworks, and following development paradigms such as TDD,
 provide a solid foundation for building high-quality software. These practices
@@ -641,6 +653,7 @@ facilitate continuous improvement. By integrating these approaches into their
 development workflows, individual developers and teams can create more
 maintainable, scalable, and robust applications, ultimately delivering better
 products to end-users.</p>
+</section>
 </section>
 </section>
 
@@ -707,20 +720,26 @@ products to end-users.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-parallel-programming">Overview of Parallel Programming</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-strategies-in-parallel-programming">Decomposition Strategies in Parallel Programming</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-and-considerations">Challenges and Considerations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-parallel-scaling">Overview of Parallel Scaling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strong-scaling">Strong Scaling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-scaling">Weak Scaling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amdahl-s-law">Amdahl’s Law</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gustafson-s-law">Gustafson’s Law</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability-challenges-and-considerations">Scalability Challenges and Considerations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-good-programming-practices">Benefits of Good Programming Practices</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-control-with-git">Version Control with Git</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-testing-framework">Using a Testing Framework</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-paradigms-test-driven-development-tdd">Development Paradigms: Test-Driven Development (TDD)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-parallel-programming">Overview of Parallel Programming</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-strategies-in-parallel-programming">Decomposition Strategies in Parallel Programming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-and-considerations">Challenges and Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-parallel-scaling">Overview of Parallel Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strong-scaling">Strong Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-scaling">Weak Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amdahl-s-law">Amdahl’s Law</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gustafson-s-law">Gustafson’s Law</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability-challenges-and-considerations">Scalability Challenges and Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-good-programming-practices">Benefits of Good Programming Practices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#version-control-with-git">Version Control with Git</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-testing-framework">Using a Testing Framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#development-paradigms-test-driven-development-tdd">Development Paradigms: Test-Driven Development (TDD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

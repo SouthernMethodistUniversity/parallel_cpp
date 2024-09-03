@@ -366,27 +366,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-safety-and-modern-c-features-one-of-the-primary-benefits-of">1. <strong>Type Safety and Modern C++ Features:</strong> One of the primary benefits of</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-abstraction-and-usability-mpl-provides-a-higher-level">2. <strong>Improved Abstraction and Usability:</strong> MPL provides a higher-level</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-productivity-and-reduced-development-time-by-simplifying">3. <strong>Enhanced Productivity and Reduced Development Time:</strong> By simplifying</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability-and-performance-optimization-mpl-is-optimized-to-work">4. <strong>Scalability and Performance Optimization:</strong> MPL is optimized to work</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portability-and-compatibility-mpl-is-designed-to-be-fully">5. <strong>Portability and Compatibility:</strong> MPL is designed to be fully</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites-1-mpi-library-you-need-an-mpi-implementation-such-as">Prerequisites 1. <strong>MPI Library</strong>: You need an MPI implementation such as</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-code-hello-world-using-mpl-with-mpi">Sample Code: Hello World using MPL with MPI</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation-1-including-mpl-include-mpl-mpl-hpp-includes-the">Explanation: 1. <strong>Including MPL</strong>: <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;mpl/mpl.hpp&gt;</span></code> includes the</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-ensure-that-the-mpl-headers-are-correctly-included-in-your-project">Notes: - Ensure that the MPL headers are correctly included in your project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world-using-mpl-with-mpi">Hello World using MPL with MPI</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-matrix-multiplication">Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication-overview">Parallel Matrix-Matrix Multiplication Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-implement-the-program">Steps to Implement the Program:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication">C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parts-of-the-code">Key Parts of the Code</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Compilation and Execution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-matrix-multiplication">Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-implement-the-program">Steps to Implement the Program:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication">C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parts-of-the-code">Key Parts of the Code</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Compilation and Execution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Notes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -405,98 +402,122 @@ document.write(`
 <p>Using the C++ MPL (Message Passing Library) in conjunction with MPI (Message
 Passing Interface) provides several significant benefits for developers working
 on parallel computing and distributed systems. Here are a few key advantages:</p>
-<section id="type-safety-and-modern-c-features-one-of-the-primary-benefits-of">
-<h2>1. <strong>Type Safety and Modern C++ Features:</strong> One of the primary benefits of<a class="headerlink" href="#type-safety-and-modern-c-features-one-of-the-primary-benefits-of" title="Permalink to this heading">#</a></h2>
-<p>using MPL with MPI is the enhanced type safety it offers. MPL is designed with
+<ol class="arabic simple">
+<li><p><strong>Type Safety and Modern C++ Features:</strong> One of the primary benefits of
+using MPL with MPI is the enhanced type safety it offers. MPL is designed with
 modern C++ standards in mind, utilizing features such as templates, type
 inference, and smart pointers. This helps ensure that message-passing
 operations are type-safe, reducing the likelihood of runtime errors due to type
 mismatches. The ability to leverage modern C++ features such as lambdas, auto
 keyword, and constexpr also allows developers to write more concise and
 maintainable code, making use of idiomatic C++ patterns that are both robust
-and easier to understand.</p>
-</section>
-<section id="improved-abstraction-and-usability-mpl-provides-a-higher-level">
-<h2>2. <strong>Improved Abstraction and Usability:</strong> MPL provides a higher-level<a class="headerlink" href="#improved-abstraction-and-usability-mpl-provides-a-higher-level" title="Permalink to this heading">#</a></h2>
-<p>abstraction over the traditional MPI C/C++ bindings. By encapsulating common
+and easier to understand.</p></li>
+<li><p><strong>Improved Abstraction and Usability:</strong> MPL provides a higher-level
+abstraction over the traditional MPI C/C++ bindings. By encapsulating common
 MPI operations into C++ classes and functions, MPL simplifies the syntax and
 reduces boilerplate code, leading to clearer and more readable codebases.
 Developers can focus more on the problem they are solving rather than the
 intricacies of MPI. This abstraction layer not only makes it easier to perform
 common tasks like point-to-point communication, broadcasting, and collective
 operations but also allows for the integration of complex C++ data types
-seamlessly.</p>
-</section>
-<section id="enhanced-productivity-and-reduced-development-time-by-simplifying">
-<h2>3. <strong>Enhanced Productivity and Reduced Development Time:</strong> By simplifying<a class="headerlink" href="#enhanced-productivity-and-reduced-development-time-by-simplifying" title="Permalink to this heading">#</a></h2>
-<p>MPI’s verbose and often error-prone API, MPL significantly reduces the learning
+seamlessly.</p></li>
+<li><p><strong>Enhanced Productivity and Reduced Development Time:</strong> By simplifying
+MPI’s verbose and often error-prone API, MPL significantly reduces the learning
 curve for new developers and speeds up the development process for seasoned
 programmers. MPL’s design encourages best practices by providing a more
 intuitive API, which reduces the likelihood of common MPI-related bugs (such as
 incorrect buffer sizes, improper type handling, and synchronization issues).
 The result is a shorter development cycle, quicker debugging, and faster
 time-to-market for scientific and engineering applications that rely on
-parallel computing.</p>
-</section>
-<section id="scalability-and-performance-optimization-mpl-is-optimized-to-work">
-<h2>4. <strong>Scalability and Performance Optimization:</strong> MPL is optimized to work<a class="headerlink" href="#scalability-and-performance-optimization-mpl-is-optimized-to-work" title="Permalink to this heading">#</a></h2>
-<p>efficiently with MPI’s underlying communication mechanisms. It takes advantage
+parallel computing.</p></li>
+<li><p><strong>Scalability and Performance Optimization:</strong> MPL is optimized to work
+efficiently with MPI’s underlying communication mechanisms. It takes advantage
 of MPI’s high-performance, low-latency communication capabilities while
 providing additional optimizations that are facilitated by modern C++
 compilers. This means that applications developed using MPL can scale
 efficiently across large numbers of processors, making it suitable for
 high-performance computing (HPC) environments. Additionally, MPL’s API is
 designed to minimize the overhead introduced by its abstractions, ensuring that
-applications can achieve near-native MPI performance.</p>
-</section>
-<section id="portability-and-compatibility-mpl-is-designed-to-be-fully">
-<h2>5. <strong>Portability and Compatibility:</strong> MPL is designed to be fully<a class="headerlink" href="#portability-and-compatibility-mpl-is-designed-to-be-fully" title="Permalink to this heading">#</a></h2>
-<p>compatible with the MPI standard, ensuring that existing MPI-based applications
+applications can achieve near-native MPI performance.</p></li>
+<li><p><strong>Portability and Compatibility:</strong> MPL is designed to be fully
+compatible with the MPI standard, ensuring that existing MPI-based applications
 can be easily ported to use MPL without significant changes to the underlying
 code. This backward compatibility makes MPL an attractive option for developers
 looking to modernize their codebases while maintaining the ability to run on
 various platforms that support MPI. Moreover, MPL’s abstraction layer can help
 mitigate platform-specific quirks and differences in MPI implementations,
-further enhancing portability.</p>
+further enhancing portability.</p></li>
+</ol>
 <p>In summary, using the C++ MPL library with MPI provides a combination of modern
 C++ features, improved type safety, usability, enhanced productivity, and
 performance optimization. These benefits make it a powerful tool for developers
 working on parallel computing applications, helping to write more efficient,
 maintainable, and scalable code.</p>
-</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
 <section id="hello-world">
-<h2>Hello, World!<a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h2>
+<h3>Hello, World!<a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h3>
 <p>To create a “Hello, World” style program in C++ that utilizes the Message
 Passing Interface (MPI) for parallelism with the Message Passing Library (MPL),
 you’ll first need to ensure that you have MPL set up in your environment. MPL
 is a modern C++ wrapper for MPI, which simplifies the process of using MPI by
 providing a more C++-like interface.</p>
 <p>Here’s a simple example of a “Hello, World” program using MPL and MPI:</p>
-<section id="prerequisites-1-mpi-library-you-need-an-mpi-implementation-such-as">
-<h3>Prerequisites 1. <strong>MPI Library</strong>: You need an MPI implementation such as<a class="headerlink" href="#prerequisites-1-mpi-library-you-need-an-mpi-implementation-such-as" title="Permalink to this heading">#</a></h3>
-<p>OpenMPI or MPICH installed on your system. 2. <strong>MPL</strong>: You need to have MPL
-installed. MPL is header-only, so you can include it in your project without a
-complicated installation process. You can find it on <a class="reference external" href="https://github.com/rabauke/mpl">MPL
-GitHub</a>.</p>
+<section id="prerequisites">
+<h4>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>MPI Library</strong>: You need an MPI implementation such as OpenMPI or MPICH
+installed on your system.</p></li>
+<li><p><strong>MPL</strong>: You need to have MPL installed. MPL is header-only, so you can
+include it in your project without a complicated installation process. You can
+find it on <a class="reference external" href="https://github.com/rabauke/mpl">MPL GitHub</a>.</p></li>
+</ol>
 </section>
-<section id="sample-code-hello-world-using-mpl-with-mpi">
-<h3>Sample Code: Hello World using MPL with MPI<a class="headerlink" href="#sample-code-hello-world-using-mpl-with-mpi" title="Permalink to this heading">#</a></h3>
+<section id="hello-world-using-mpl-with-mpi">
+<h4>Hello World using MPL with MPI<a class="headerlink" href="#hello-world-using-mpl-with-mpi" title="Permalink to this heading">#</a></h4>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpl/mpl.hpp&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Initialize MPL communicator</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">communicator</span><span class="w"> </span><span class="o">&amp;</span><span class="n">comm_world</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">comm_world</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Get the rank (ID) of the process</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Get the total number of processes</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">comm_world</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Print Hello World from each process</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello, World from process &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; out of &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; processes!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
-<section id="explanation-1-including-mpl-include-mpl-mpl-hpp-includes-the">
-<h3>Explanation: 1. <strong>Including MPL</strong>: <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;mpl/mpl.hpp&gt;</span></code> includes the<a class="headerlink" href="#explanation-1-including-mpl-include-mpl-mpl-hpp-includes-the" title="Permalink to this heading">#</a></h3>
-<p>MPL header file, which provides the necessary classes and functions to interact
-with MPI. 2. <strong>Initialize Communicator</strong>: <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">mpl::communicator</span> <span class="pre">&amp;comm_world</span> <span class="pre">=</span> <span class="pre">mpl::environment::comm_world();</span></code> initializes the default communicator
-(similar to <code class="docutils literal notranslate"><span class="pre">MPI_COMM_WORLD</span></code> in standard MPI). 3. <strong>Rank and Size</strong>: -
+<section id="explanation">
+<h4>Explanation<a class="headerlink" href="#explanation" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Including MPL</strong>: <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;mpl/mpl.hpp&gt;</span></code> includes the
+MPL header file, which provides the necessary classes and functions to interact
+with MPI.</p></li>
+<li><p><strong>Initialize Communicator</strong>: <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">mpl::communicator</span> <span class="pre">&amp;comm_world</span> <span class="pre">=</span> <span class="pre">mpl::environment::comm_world();</span></code> initializes the default communicator
+(similar to <code class="docutils literal notranslate"><span class="pre">MPI_COMM_WORLD</span></code> in standard MPI).</p></li>
+<li><p><strong>Rank and Size</strong>: -
 <code class="docutils literal notranslate"><span class="pre">comm_world.rank()</span></code>: This function returns the rank (or ID) of the current
 process. - <code class="docutils literal notranslate"><span class="pre">comm_world.size()</span></code>: This function returns the total number of
-processes participating in the communicator. 4. <strong>Printing</strong>: Each process
+processes participating in the communicator.</p></li>
+<li><p><strong>Printing</strong>: Each process
 prints its rank and the total number of processes, allowing us to see parallel
-execution.</p>
+execution.</p></li>
+</ol>
 </section>
 <section id="compilation-and-execution">
-<h3>Compilation and Execution<a class="headerlink" href="#compilation-and-execution" title="Permalink to this heading">#</a></h3>
+<h4>Compilation and Execution<a class="headerlink" href="#compilation-and-execution" title="Permalink to this heading">#</a></h4>
 <p>To compile and run this program, you typically use an MPI compiler wrapper like
-<code class="docutils literal notranslate"><span class="pre">mpic++</span></code>:</p>
+<code class="docutils literal notranslate"><span class="pre">mpic++</span></code>. Additionally you can use CMake to automatically download the
+dependencies.</p>
 <ol class="arabic">
 <li><p><strong>Compile the Program</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpic++<span class="w"> </span>-o<span class="w"> </span>hello_mpl<span class="w"> </span>hello_mpl.cpp
@@ -506,6 +527,37 @@ execution.</p>
 <span class="nb">cd</span><span class="w"> </span>build
 cmake<span class="w"> </span>..
 cmake<span class="w"> </span>--build<span class="w"> </span>.
+</pre></div>
+</div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.14</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">HelloMPLMPI</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="c"># Specify C++ standard</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">True</span><span class="p">)</span>
+
+<span class="c"># Find MPI</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">MPI</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="c"># Use FetchContent to download MPL if not available</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+
+<span class="nb">FetchContent_Declare</span><span class="p">(</span>
+<span class="w">    </span><span class="s">MPL</span>
+<span class="w">    </span><span class="s">GIT_REPOSITORY</span><span class="w"> </span><span class="s">https://github.com/rabauke/mpl.git</span>
+<span class="w">    </span><span class="s">GIT_TAG</span><span class="w">        </span><span class="s">master</span>
+<span class="p">)</span>
+
+<span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">MPL</span><span class="p">)</span>
+
+<span class="c"># Add the executable</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">hello_mpl</span><span class="w"> </span><span class="s">hello_mpl.cpp</span><span class="p">)</span>
+
+<span class="c"># Include MPL headers</span>
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">hello_mpl</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="o">${</span><span class="nv">mpl_SOURCE_DIR</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c"># Link against MPI</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">hello_mpl</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">MPI::MPI_CXX</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -519,7 +571,7 @@ cmake<span class="w"> </span>--build<span class="w"> </span>.
 process indicating its rank.</p>
 </section>
 <section id="example-output">
-<h3>Example Output<a class="headerlink" href="#example-output" title="Permalink to this heading">#</a></h3>
+<h4>Example Output<a class="headerlink" href="#example-output" title="Permalink to this heading">#</a></h4>
 <p>If you run the program with 4 processes, you might see something like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hello, World from process 0 out of 4 processes!
 Hello, World from process 1 out of 4 processes!
@@ -528,33 +580,43 @@ Hello, World from process 3 out of 4 processes!
 </pre></div>
 </div>
 </section>
-<section id="notes-ensure-that-the-mpl-headers-are-correctly-included-in-your-project">
-<h3>Notes: - Ensure that the MPL headers are correctly included in your project<a class="headerlink" href="#notes-ensure-that-the-mpl-headers-are-correctly-included-in-your-project" title="Permalink to this heading">#</a></h3>
-<p>path or specified using the include flag during compilation. - The order of
-output may vary as processes execute independently.</p>
+<section id="notes">
+<h4>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Ensure that the MPL headers are correctly included in your project
+path or specified using the include flag during compilation.</p></li>
+<li><p>The order of output may vary as processes execute independently.</p></li>
+</ul>
 <p>This simple program demonstrates how to initialize an MPI environment using
 MPL, obtain information about each process, and print output in a parallelized
 manner.</p>
 </section>
 </section>
 <section id="matrix-matrix-multiplication">
-<h2>Matrix-Matrix Multiplication<a class="headerlink" href="#matrix-matrix-multiplication" title="Permalink to this heading">#</a></h2>
-<p>To create a C++ program using MPL (Message Passing Library) for MPI-based parallel matrix-matrix multiplication, we need to distribute the work across multiple processes. Each process will handle a portion of the matrix multiplication, and we’ll use MPI to manage communication between the processes.</p>
-<section id="parallel-matrix-matrix-multiplication-overview">
-<h3>Parallel Matrix-Matrix Multiplication Overview<a class="headerlink" href="#parallel-matrix-matrix-multiplication-overview" title="Permalink to this heading">#</a></h3>
-<p>For simplicity, consider square matrices of size <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">x</span> <span class="pre">N</span></code>. Each process will compute a part of the result matrix. We’ll use row-wise decomposition, where each process is responsible for a specific set of rows in the result matrix.</p>
-</section>
+<h3>Matrix-Matrix Multiplication<a class="headerlink" href="#matrix-matrix-multiplication" title="Permalink to this heading">#</a></h3>
+<p>To create a C++ program using MPL (Message Passing Library) for MPI-based
+parallel matrix-matrix multiplication, we need to distribute the work across
+multiple processes. Each process will handle a portion of the matrix
+multiplication, and we’ll use MPI to manage communication between the
+processes.</p>
+<p>For simplicity, consider square matrices of size <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">x</span> <span class="pre">N</span></code>. Each process will
+compute a part of the result matrix. We’ll use row-wise decomposition, where
+each process is responsible for a specific set of rows in the result matrix.</p>
 <section id="steps-to-implement-the-program">
-<h3>Steps to Implement the Program:<a class="headerlink" href="#steps-to-implement-the-program" title="Permalink to this heading">#</a></h3>
+<h4>Steps to Implement the Program:<a class="headerlink" href="#steps-to-implement-the-program" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
-<li><p><strong>Distribute the Matrices</strong>: We’ll distribute parts of matrices <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> among different MPI processes.</p></li>
-<li><p><strong>Perform Local Computation</strong>: Each process computes its part of the result matrix <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p></li>
-<li><p><strong>Gather Results</strong>: Use MPI to gather all parts of the result matrix <code class="docutils literal notranslate"><span class="pre">C</span></code> from different processes.</p></li>
+<li><p><strong>Distribute the Matrices</strong>: We’ll distribute parts of matrices <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>
+among different MPI processes.</p></li>
+<li><p><strong>Perform Local Computation</strong>: Each process computes its part of the result
+matrix <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p></li>
+<li><p><strong>Gather Results</strong>: Use MPI to gather all parts of the result matrix <code class="docutils literal notranslate"><span class="pre">C</span></code>
+from different processes.</p></li>
 </ol>
 </section>
 <section id="c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication">
-<h3>C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication<a class="headerlink" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication" title="Permalink to this heading">#</a></h3>
-<p>Here’s a C++ program that performs parallel matrix-matrix multiplication using MPL:</p>
+<h4>C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication<a class="headerlink" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication" title="Permalink to this heading">#</a></h4>
+<p>Here’s a C++ program that performs parallel matrix-matrix multiplication using
+MPL:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpl/mpl.hpp&gt;</span>
@@ -595,7 +657,7 @@ manner.</p>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// Broadcast matrix B to all processes</span>
-<span class="w">    </span><span class="n">comm_world</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">comm_world</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// Determine the number of rows each process will handle</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rows_per_process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
@@ -632,16 +694,21 @@ manner.</p>
 </div>
 </section>
 <section id="key-parts-of-the-code">
-<h3>Key Parts of the Code<a class="headerlink" href="#key-parts-of-the-code" title="Permalink to this heading">#</a></h3>
+<h4>Key Parts of the Code<a class="headerlink" href="#key-parts-of-the-code" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
-<li><p><strong>Matrix Initialization</strong>: Matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> are initialized in process 0. The program uses integer values for simplicity.</p></li>
-<li><p><strong>Broadcast Matrix <code class="docutils literal notranslate"><span class="pre">B</span></code></strong>: The matrix <code class="docutils literal notranslate"><span class="pre">B</span></code> is broadcasted from process 0 to all other processes using <code class="docutils literal notranslate"><span class="pre">comm_world.bcast(B.data(),</span> <span class="pre">B.size(),</span> <span class="pre">0);</span></code>. All processes receive matrix <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p></li>
-<li><p><strong>Local Computation</strong>: Each process computes its assigned rows of matrix <code class="docutils literal notranslate"><span class="pre">C</span></code> using the local data.</p></li>
-<li><p><strong>Gather Results</strong>: The results are gathered to process 0 using <code class="docutils literal notranslate"><span class="pre">comm_world.gather()</span></code>. The final result matrix <code class="docutils literal notranslate"><span class="pre">C</span></code> is printed by process 0.</p></li>
+<li><p><strong>Matrix Initialization</strong>: Matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> are initialized in process 0.
+The program uses integer values for simplicity.</p></li>
+<li><p><strong>Broadcast Matrix <code class="docutils literal notranslate"><span class="pre">B</span></code></strong>: The matrix <code class="docutils literal notranslate"><span class="pre">B</span></code> is broadcasted from process 0 to
+all other processes using <code class="docutils literal notranslate"><span class="pre">comm_world.bcast(B.data(),</span> <span class="pre">B.size(),</span> <span class="pre">0);</span></code>. All
+processes receive matrix <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p></li>
+<li><p><strong>Local Computation</strong>: Each process computes its assigned rows of matrix <code class="docutils literal notranslate"><span class="pre">C</span></code>
+using the local data.</p></li>
+<li><p><strong>Gather Results</strong>: The results are gathered to process 0 using
+<code class="docutils literal notranslate"><span class="pre">comm_world.gather()</span></code>. The final result matrix <code class="docutils literal notranslate"><span class="pre">C</span></code> is printed by process 0.</p></li>
 </ol>
 </section>
 <section id="id1">
-<h3>Compilation and Execution<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h4>Compilation and Execution<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
 <ol class="arabic">
 <li><p><strong>Compile</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpic++<span class="w"> </span>-o<span class="w"> </span>matrix_multiplication<span class="w"> </span>matrix_multiplication.cpp
@@ -655,13 +722,17 @@ manner.</p>
 </li>
 </ol>
 </section>
-<section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h4>Notes<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Ensure that MPL is correctly installed and included in the include path.</p></li>
-<li><p>Adjust the matrix size <code class="docutils literal notranslate"><span class="pre">N</span></code> and number of processes to fit your system’s capability.</p></li>
-<li><p>This code assumes the number of rows (<code class="docutils literal notranslate"><span class="pre">N</span></code>) is divisible by the number of processes. If <code class="docutils literal notranslate"><span class="pre">N</span></code> is not divisible by <code class="docutils literal notranslate"><span class="pre">size</span></code>, the last process handles the remaining rows.</p></li>
+<li><p>Adjust the matrix size <code class="docutils literal notranslate"><span class="pre">N</span></code> and number of processes to fit your system’s
+capability.</p></li>
+<li><p>This code assumes the number of rows (<code class="docutils literal notranslate"><span class="pre">N</span></code>) is divisible by the number of
+processes. If <code class="docutils literal notranslate"><span class="pre">N</span></code> is not divisible by <code class="docutils literal notranslate"><span class="pre">size</span></code>, the last process handles the
+remaining rows.</p></li>
 </ul>
+</section>
 </section>
 </section>
 </section>
@@ -720,27 +791,24 @@ manner.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-safety-and-modern-c-features-one-of-the-primary-benefits-of">1. <strong>Type Safety and Modern C++ Features:</strong> One of the primary benefits of</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-abstraction-and-usability-mpl-provides-a-higher-level">2. <strong>Improved Abstraction and Usability:</strong> MPL provides a higher-level</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-productivity-and-reduced-development-time-by-simplifying">3. <strong>Enhanced Productivity and Reduced Development Time:</strong> By simplifying</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalability-and-performance-optimization-mpl-is-optimized-to-work">4. <strong>Scalability and Performance Optimization:</strong> MPL is optimized to work</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portability-and-compatibility-mpl-is-designed-to-be-fully">5. <strong>Portability and Compatibility:</strong> MPL is designed to be fully</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites-1-mpi-library-you-need-an-mpi-implementation-such-as">Prerequisites 1. <strong>MPI Library</strong>: You need an MPI implementation such as</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-code-hello-world-using-mpl-with-mpi">Sample Code: Hello World using MPL with MPI</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation-1-including-mpl-include-mpl-mpl-hpp-includes-the">Explanation: 1. <strong>Including MPL</strong>: <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;mpl/mpl.hpp&gt;</span></code> includes the</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-ensure-that-the-mpl-headers-are-correctly-included-in-your-project">Notes: - Ensure that the MPL headers are correctly included in your project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world">Hello, World!</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world-using-mpl-with-mpi">Hello World using MPL with MPI</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-and-execution">Compilation and Execution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-matrix-multiplication">Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-matrix-matrix-multiplication-overview">Parallel Matrix-Matrix Multiplication Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-implement-the-program">Steps to Implement the Program:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication">C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parts-of-the-code">Key Parts of the Code</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Compilation and Execution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-matrix-multiplication">Matrix-Matrix Multiplication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-implement-the-program">Steps to Implement the Program:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c-code-using-mpl-for-mpi-based-parallel-matrix-matrix-multiplication">C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-parts-of-the-code">Key Parts of the Code</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Compilation and Execution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Notes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -1,6 +1,6 @@
 # Parallel Programming
 
-### Overview of Parallel Programming
+## Overview of Parallel Programming
 
 Parallel programming is a method of computation in which multiple processes are
 executed simultaneously, aiming to solve problems more efficiently by dividing
@@ -86,7 +86,7 @@ efficiently but also managing inter-process communication, synchronization, and
 data dependencies to optimize overall performance and achieve the desired
 computational goals.
 
-### Overview of Parallel Scaling
+## Overview of Parallel Scaling
 
 Parallel scaling is a fundamental concept in parallel computing that refers to
 how effectively a parallel system or algorithm can utilize additional
@@ -137,11 +137,15 @@ of a parallel program as a function of the fraction of the code that can be
 parallelized. According to Amdahl's Law, the maximum speedup (\( S \))
 achievable by a parallel system with \( N \) processors is given by:
 
-\[ S = \frac{1}{(1 - P) + \frac{P}{N}} \]
+```{math}
+S = \frac{1}{(1 - P) + \frac{P}{N}}
+```
 
-Where: - \( P \) is the proportion of the program that can be parallelized. -
-\( 1 - P \) is the proportion of the program that is inherently sequential and
-cannot be parallelized. - \( N \) is the number of processors.
+Where:
+- $P$ is the proportion of the program that can be parallelized.
+- $1 - P$ is the proportion of the program that is inherently sequential and
+cannot be parallelized.
+- $N$ is the number of processors.
 
 Amdahl's Law implies that even with an infinite number of processors, the
 speedup is limited by the sequential portion of the code. For example, if only
@@ -179,7 +183,7 @@ these principles, developers can make informed decisions about the design and
 implementation of parallel algorithms to achieve the best possible performance
 on modern multi-core and distributed computing platforms.
 
-### Benefits of Good Programming Practices
+## Benefits of Good Programming Practices
 
 Good programming practices are essential for creating reliable, maintainable,
 and efficient software. They help developers manage complexity, reduce errors,
