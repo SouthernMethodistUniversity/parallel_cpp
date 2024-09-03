@@ -20,11 +20,11 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(MPL)
 
 # Add the executable
-add_executable(hello_mpl hello_mpl.cpp)
+add_executable(matrix_multiplication matrix_multiplication.cpp)
 
 # Include MPL headers
-target_include_directories(hello_mpl PRIVATE ${mpl_SOURCE_DIR})
+target_include_directories(matrix_multiplication PRIVATE ${mpl_SOURCE_DIR})
 
 # Link against MPI
-target_link_libraries(hello_mpl PRIVATE MPI::MPI_CXX)
+target_link_libraries(matrix_multiplication PRIVATE MPI::MPI_CXX)
 

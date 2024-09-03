@@ -101,6 +101,12 @@ To compile and run this program, you typically use an MPI compiler wrapper like
     ```bash
     mpic++ -o hello_mpl hello_mpl.cpp
     ```
+    ```bash
+    mkdir build
+    cd build
+    cmake ..
+    cmake --build .
+    ```
 
 2. **Run the Program**: Specify the number of processes using `mpirun` or `mpiexec`.
     ```bash
@@ -127,4 +133,126 @@ output may vary as processes execute independently.
 This simple program demonstrates how to initialize an MPI environment using
 MPL, obtain information about each process, and print output in a parallelized
 manner.
+
+## Matrix-Matrix Multiplication
+
+To create a C++ program using MPL (Message Passing Library) for MPI-based parallel matrix-matrix multiplication, we need to distribute the work across multiple processes. Each process will handle a portion of the matrix multiplication, and we'll use MPI to manage communication between the processes.
+
+### Parallel Matrix-Matrix Multiplication Overview
+
+For simplicity, consider square matrices of size `N x N`. Each process will compute a part of the result matrix. We'll use row-wise decomposition, where each process is responsible for a specific set of rows in the result matrix.
+
+### Steps to Implement the Program:
+
+1. **Distribute the Matrices**: We'll distribute parts of matrices `A` and `B` among different MPI processes.
+2. **Perform Local Computation**: Each process computes its part of the result matrix `C`.
+3. **Gather Results**: Use MPI to gather all parts of the result matrix `C` from different processes.
+
+### C++ Code Using MPL for MPI-Based Parallel Matrix-Matrix Multiplication
+
+Here's a C++ program that performs parallel matrix-matrix multiplication using MPL:
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <mpl/mpl.hpp>
+
+void print_matrix(const std::vector<std::vector<int>> &matrix, const std::string &name) {
+    std::cout << name << ":\n";
+    for (const auto &row : matrix) {
+        for (const auto &elem : row) {
+            std::cout << elem << " ";
+        }
+        std::cout << "\n";
+    }
+}
+
+int main() {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    int rank = comm_world.rank();
+    int size = comm_world.size();
+
+    const int N = 4;  // Size of the matrix (N x N)
+    std::vector<std::vector<int>> A(N, std::vector<int>(N));
+    std::vector<std::vector<int>> B(N, std::vector<int>(N));
+    std::vector<std::vector<int>> C(N, std::vector<int>(N, 0)); // Result matrix
+
+    if (rank == 0) {
+        // Initialize matrices A and B
+        int value = 1;
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < N; ++j) {
+                A[i][j] = value;
+                B[i][j] = value;
+                value++;
+            }
+        }
+
+        print_matrix(A, "Matrix A");
+        print_matrix(B, "Matrix B");
+    }
+
+    // Broadcast matrix B to all processes
+    comm_world.bcast(B.data(), B.size(), 0);
+
+    // Determine the number of rows each process will handle
+    int rows_per_process = N / size;
+    int remaining_rows = N % size;
+
+    int start_row = rank * rows_per_process;
+    int end_row = (rank + 1) * rows_per_process;
+
+    if (rank == size - 1) {
+        end_row += remaining_rows;  // Last process may handle extra rows
+    }
+
+    // Each process computes its part of matrix C
+    for (int i = start_row; i < end_row; ++i) {
+        for (int j = 0; j < N; ++j) {
+            for (int k = 0; k < N; ++k) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+
+    // Gather results from all processes to process 0
+    if (rank == 0) {
+        std::vector<std::vector<int>> full_C(N, std::vector<int>(N));
+        comm_world.gather(0, C.data(), full_C.data(), 0);
+        print_matrix(full_C, "Result Matrix C");
+    } else {
+        comm_world.gather(0, C.data(), 0);
+    }
+
+    return 0;
+}
+```
+
+### Key Parts of the Code
+
+1. **Matrix Initialization**: Matrix `A` and `B` are initialized in process 0. The program uses integer values for simplicity.
+
+2. **Broadcast Matrix `B`**: The matrix `B` is broadcasted from process 0 to all other processes using `comm_world.bcast(B.data(), B.size(), 0);`. All processes receive matrix `B`.
+
+3. **Local Computation**: Each process computes its assigned rows of matrix `C` using the local data.
+
+4. **Gather Results**: The results are gathered to process 0 using `comm_world.gather()`. The final result matrix `C` is printed by process 0.
+
+### Compilation and Execution
+
+1. **Compile**:
+    ```bash
+    mpic++ -o matrix_multiplication matrix_multiplication.cpp
+    ```
+
+2. **Run** (with 4 processes, for example):
+    ```bash
+    mpirun -np 4 ./matrix_multiplication
+    ```
+
+### Notes
+
+- Ensure that MPL is correctly installed and included in the include path.
+- Adjust the matrix size `N` and number of processes to fit your system's capability.
+- This code assumes the number of rows (`N`) is divisible by the number of processes. If `N` is not divisible by `size`, the last process handles the remaining rows.
 
