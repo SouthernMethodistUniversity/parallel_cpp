@@ -1,8 +1,10 @@
-# O’Donnell Data Science and Research Computing Institute Parallel C++ Programming Workshop
+# SMU O’Donnell Data Science and Research Computing Institute Parallel C++ Workshop
 
-This resource is designed to introduce and workshop users through the
-fundamental concepts and practical implementations of parallel programming
-using C++ standard parallelism and MPI via MPL.
+The SMU [O’Donnell Data Science and Research Computing Institute
+Parallel](https://www.smu.edu/provost/odonnell-institute) C++ Workshop is
+designed to introduce users through the fundamental concepts and practical
+implementations of parallel programming using C++ standard parallelism and MPI
+via MPL.
 
 ## Overview
 
