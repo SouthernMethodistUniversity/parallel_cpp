@@ -116,12 +116,14 @@ concept.
 To compile this program, you need to use a C++ compiler that supports C++17.
 For example, using `g++`, you can compile the code with:
 
-```bash g++ -std=c++17 -o hello_parallel hello_parallel.cpp
+```bash
+g++ -std=c++17 -o hello_parallel hello_parallel.cpp
 ```
 
 Then run the program:
 
-```bash ./hello_parallel
+```bash
+./hello_parallel
 ```
 
 This program should print "Hello, World!" ten times, potentially in parallel
