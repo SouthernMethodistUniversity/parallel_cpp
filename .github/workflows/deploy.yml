@@ -8,6 +8,9 @@ on:
     - develop
     paths:
     - docs/**
+  pull_request:
+    types:
+      - closed
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
