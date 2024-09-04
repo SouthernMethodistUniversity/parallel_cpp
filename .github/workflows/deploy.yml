@@ -5,17 +5,15 @@ on:
   push:
     branches:
     - main
-    - develop
-    paths:
-    - docs/**
   pull_request:
-    types:
-      - closed
+    types: [closed]
+    branches: [main]
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
     steps:
     - uses: actions/checkout@v4
 
