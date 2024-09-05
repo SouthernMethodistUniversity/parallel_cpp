@@ -1,6 +1,7 @@
 title: Parallel Programming with C++ Standard Parallelism and the Message Passing Library
 author: SMU O'Donnell Data Science and Research Computing Institute
 logo: logo.webp
+copyright: "2024"
 
 execute:
   execute_notebooks: force
