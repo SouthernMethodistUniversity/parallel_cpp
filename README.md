@@ -1,8 +1,8 @@
 # SMU O’Donnell Data Science and Research Computing Institute Parallel C++ Workshop
 
-The SMU [O’Donnell Data Science and Research Computing Institute
-Parallel](https://www.smu.edu/provost/odonnell-institute) C++ Workshop is
-designed to introduce users through the fundamental concepts and practical
+The SMU [O'Donnell Data Science and Research Computing
+Institute](https://www.smu.edu/provost/odonnell-institute) Parallel C++ Workshop
+is designed to introduce users through the fundamental concepts and practical
 implementations of parallel programming using C++ standard parallelism and MPI
 via MPL.
 
@@ -22,7 +22,8 @@ techniques that enable you to write efficient and scalable parallel code.
    - Overview of parallel hardware and software architectures.
 
 2. **C++17 Parallel Programming:**
-   - Use of standard C++ features for parallelism, such as threads, atomic operations, and futures.
+   - Use of standard C++ features for parallelism, such as threads, atomic
+     operations, and futures.
    - Introduction to the C++ Standard Library's threading support.
 
 4. **MPI (Message Passing Interface) via MPL:**
@@ -34,16 +35,16 @@ techniques that enable you to write efficient and scalable parallel code.
 
 - Prerequisites: Basic understanding of C++ programming.
 - Environment Setup: Guidance on setting up a development environment suitable
-for parallel programming, including compiler settings and libraries.
+  for parallel programming, including compiler settings and libraries.
 - Example Projects: Hands-on examples provided to practice the concepts
-learned.
+  learned.
 
 ## Resources
 
 - **Documentation:** Detailed explanations and examples of the concepts
-covered.
+  covered.
 - **Examples:** Sample code demonstrating the use of parallel constructs in
-real-world scenarios.
+  real-world scenarios.
 - **Exercises:** Problems and projects to test your understanding and skills.
 
 ## Contribution
